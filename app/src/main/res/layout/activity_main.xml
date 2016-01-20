@@ -5,7 +5,111 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+
+    <EditText
+        android:layout_width="@dimen/dms_width"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/latDeg"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="°"
+        android:id="@+id/latDegLabel"
+        android:layout_alignBottom="@+id/latDeg"
+        android:layout_toRightOf="@+id/latDeg"
+        android:layout_toEndOf="@+id/latDeg" />
+
+    <EditText
+        android:layout_width="@dimen/dms_width"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/latMin"
+        android:layout_toRightOf="@+id/latDegLabel"
+    />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="'"
+        android:id="@+id/latMinLabel"
+        android:layout_alignBottom="@+id/latMin"
+        android:layout_toRightOf="@+id/latMin" />
+
+    <EditText
+        android:layout_width="@dimen/dms_width"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/latSec"
+        android:layout_toRightOf="@id/latMinLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text='"'
+        android:id="@+id/latSecLabel"
+        android:layout_alignBottom="@+id/latSec"
+        android:layout_toRightOf="@+id/latSec" />
+
+    <EditText
+        android:layout_width="@dimen/dms_width"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/lonDeg"
+        android:layout_below="@id/latDeg"
+        android:layout_alignParentLeft="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="°"
+        android:id="@+id/lonDegLabel"
+        android:layout_alignBottom="@+id/lonDeg"
+        android:layout_toRightOf="@+id/lonDeg"
+        />
+
+    <EditText
+        android:layout_width="@dimen/dms_width"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/lonMin"
+        android:layout_toRightOf="@+id/lonDegLabel"
+        android:layout_alignBottom="@id/lonDeg"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="'"
+        android:id="@+id/lonMinLabel"
+        android:layout_alignBottom="@+id/lonMin"
+        android:layout_toRightOf="@+id/lonMin" />
+
+    <EditText
+        android:layout_width="@dimen/dms_width"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/lonSec"
+        android:layout_alignBottom="@id/lonMin"
+        android:layout_toRightOf="@id/lonMinLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text='"'
+        android:id="@+id/lonSecLabel"
+        android:layout_alignBottom="@+id/lonSec"
+        android:layout_toRightOf="@+id/lonSec" />
 
 </RelativeLayout>
