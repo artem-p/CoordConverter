@@ -9,7 +9,7 @@ public class Converter {
 
     public Dcoords convert(DMSCoords dms) {
         //  dms to d
-        double deg = Math.abs(dms.getDeg()) + dms.getMin() / 60 + dms.getSec() / 3600;
+        double deg = Math.abs(dms.getDeg()) + dms.getMin()/ 60.0 + dms.getSec()/ 3600.0;
         if(dms.getDeg() < 0) deg = -deg;
         Dcoords dcoords = new Dcoords(deg);
         return dcoords;
