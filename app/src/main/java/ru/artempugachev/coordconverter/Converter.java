@@ -20,7 +20,7 @@ public class Converter {
         double sec;
 
         deg = (int) Math.abs(dcoords.getDeg());
-        min = (int) (Math.abs(dcoords.getDeg()) - deg)*60;
+        min = (int) Math.round((Math.abs(dcoords.getDeg()) - deg)*60);
         sec = ((Math.abs(dcoords.getDeg()) - deg) * 60 - min) * 60;
         if(dcoords.getDeg() < 0) deg = - deg;
         DMSCoords dms = new DMSCoords(deg, min, sec);
