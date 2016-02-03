@@ -29,17 +29,23 @@ public class ConverterTest extends TestCase {
 
         dms = new DMSCoords(30, 30, 30);
         ddd = mConverter.convert(dms);
-        assertEquals(30.508333333333333, ddd.getDeg(), 0);
+        assertEquals(30.508333333333333, ddd.getDeg());
 
         dms = new DMSCoords(-30, 30, 30);
         ddd = mConverter.convert(dms);
-        assertEquals(-30.508333333333333, ddd.getDeg(), 0);
+        assertEquals(-30.508333333333333, ddd.getDeg());
+
+        dms = new DMSCoords(-23, 46, 48.00);
+        ddd = mConverter.convert(dms);
+        assertEquals(-23.78, ddd.getDeg(), 1e-10);
     }
 
     public void testConvertDDDtoDMS() {
         convertDDDtoDMS(30.0, 30, 0, 0.0);
         convertDDDtoDMS(55.8, 55, 48, 0.0);
         convertDDDtoDMS(60.9554, 60, 57, 19.44);
+        convertDDDtoDMS(-23.78, -23, 46, 48.00);
+
     }
 
     private void convertDDDtoDMS(double deg, int degExpected, int minExpected, double secExpected) {
