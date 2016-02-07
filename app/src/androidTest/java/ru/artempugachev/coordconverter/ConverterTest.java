@@ -1,7 +1,5 @@
 package ru.artempugachev.coordconverter;
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
 import junit.framework.TestCase;
 
 /**
@@ -19,30 +17,25 @@ public class ConverterTest extends TestCase {
     }
 
     public void testConvertDMStoDDD(){
-        dms = new DMSCoords(0, 0, 0);
-        ddd = mConverter.convert(dms);
-        assertEquals(0.0, ddd.getDeg());
+        checkDMStoDDD(0, 0, 0, 0.0);
+        checkDMStoDDD(30, 30, 0, 30.5);
+        checkDMStoDDD(30, 30, 30, 30.508333333333333);
+        checkDMStoDDD(-30, 30, 30, -30.508333333333333);
+    }
 
-        dms = new DMSCoords(30, 30, 0);
+    private void checkDMStoDDD(int deg, int min, double sec, double degExpected) {
+        dms = new DMSCoords(deg, min, sec);
         ddd = mConverter.convert(dms);
-        assertEquals(30.5, ddd.getDeg());
-
-        dms = new DMSCoords(30, 30, 30);
-        ddd = mConverter.convert(dms);
-        assertEquals(30.508333333333333, ddd.getDeg(), 0);
-
-        dms = new DMSCoords(-30, 30, 30);
-        ddd = mConverter.convert(dms);
-        assertEquals(-30.508333333333333, ddd.getDeg(), 0);
+        assertEquals(degExpected, ddd.getDeg(), 1e-10);
     }
 
     public void testConvertDDDtoDMS() {
-        convertDDDtoDMS(30.0, 30, 0, 0.0);
-        convertDDDtoDMS(55.8, 55, 48, 0.0);
-        convertDDDtoDMS(60.9554, 60, 57, 19.44);
+        checkDDDtoDMS(30.0, 30, 0, 0.0);
+        checkDDDtoDMS(55.8, 55, 48, 0.0);
+        checkDDDtoDMS(60.9554, 60, 57, 19.44);
     }
 
-    private void convertDDDtoDMS(double deg, int degExpected, int minExpected, double secExpected) {
+    private void checkDDDtoDMS(double deg, int degExpected, int minExpected, double secExpected) {
         ddd = new Dcoords(deg);
         dms = mConverter.convert(ddd);
         assertEquals(degExpected, dms.getDeg());
