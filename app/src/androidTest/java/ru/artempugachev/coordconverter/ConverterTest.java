@@ -35,6 +35,7 @@ public class ConverterTest extends TestCase {
         checkDDDtoDMS(30.0, 30, 0, 0.0);
         checkDDDtoDMS(55.8, 55, 48, 0.0);
         checkDDDtoDMS(60.9554, 60, 57, 19.44);
+        checkDDDtoDMS(-23.78, -23, 46, 48.00);
     }
 
     private void checkDDDtoDMS(double deg, int degExpected, int minExpected, double secExpected) {
