@@ -21,7 +21,7 @@ public class ConverterTest extends TestCase {
         checkDMStoDDD(30, 30, 0, 30.5);
         checkDMStoDDD(30, 30, 30, 30.508333333333333);
         checkDMStoDDD(-30, 30, 30, -30.508333333333333);
-        checkDMStoDDD(-18, 38, 46.48, -18.646245142670608);
+        checkDMStoDDD(-18, 38, 46.48, -18.646244444444445);
         checkDMStoDDD(82, 58, 7.50, 82.96875);
     }
 
