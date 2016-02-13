@@ -32,8 +32,8 @@ public class ConverterTest extends TestCase {
     }
 
     public void testConvertDDDtoDMS() {
-        checkDDDtoDMS(30.0, 30, 0, 0.0);
         checkDDDtoDMS(55.8, 55, 48, 0.0);
+        checkDDDtoDMS(30.0, 30, 0, 0.0);
         checkDDDtoDMS(60.9554, 60, 57, 19.44);
         checkDDDtoDMS(-23.78, -23, 46, 48.00);
     }

@@ -1,5 +1,7 @@
 package ru.artempugachev.coordconverter;
 
+import java.math.BigDecimal;
+
 /**
  * Created by artem on 31.01.16.
  */
@@ -16,14 +18,17 @@ public class Converter {
     }
 
     public DMSCoords convert(Dcoords dcoords) {
-        int deg, min;
-        double sec;
 
-        deg = (int) Math.abs(dcoords.getDeg());
-        min = (int) (Math.abs(dcoords.getDeg()) - deg)*60;
-        sec = ((Math.abs(dcoords.getDeg()) - deg) * 60 - min) * 60;
-        if(dcoords.getDeg() < 0) deg = - deg;
-        DMSCoords dms = new DMSCoords(deg, min, sec);
-        return dms;
+        String sDeg = String.valueOf(Math.abs(dcoords.getDeg()));
+        BigDecimal absDeg = new BigDecimal(sDeg).abs();
+
+        int degIntPart = new BigDecimal((int)Math.abs(dcoords.getDeg())).intValue();
+
+        BigDecimal degDecimal = absDeg.subtract(new BigDecimal(degIntPart));
+        BigDecimal min = (degDecimal.multiply(new BigDecimal("60")));
+        int minIntPart = min.intValue();
+        BigDecimal sec = min.subtract(new BigDecimal(minIntPart)).multiply(new BigDecimal("60"));
+        if(dcoords.getDeg() < 0) degIntPart = - degIntPart;
+        return new DMSCoords(degIntPart, minIntPart, sec.doubleValue());
     }
 }
