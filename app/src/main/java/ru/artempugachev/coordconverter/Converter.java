@@ -1,6 +1,7 @@
 package ru.artempugachev.coordconverter;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 /**
  * Created by artem on 31.01.16.
@@ -11,7 +12,13 @@ public class Converter {
 
     public Dcoords convert(DMSCoords dms) {
         //  dms to d
-        double deg = Math.abs(dms.getDeg()) + dms.getMin()/ 60.0 + dms.getSec()/ 3600.0;
+        BigDecimal absDeg = new BigDecimal(dms.getDeg()).abs();
+        BigDecimal min = new BigDecimal(dms.getMin()).divide(new BigDecimal("60"), MathContext.DECIMAL64);
+        BigDecimal sec = new BigDecimal(dms.getSec()).divide(new BigDecimal("3600"), MathContext.DECIMAL64);
+
+        BigDecimal bdDeg = absDeg.add(min).add(sec);
+
+        double deg = bdDeg.doubleValue();
         if(dms.getDeg() < 0) deg = -deg;
         Dcoords dcoords = new Dcoords(deg);
         return dcoords;
