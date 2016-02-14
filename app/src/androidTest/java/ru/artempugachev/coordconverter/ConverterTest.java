@@ -23,15 +23,17 @@ public class ConverterTest extends TestCase {
         checkDMStoDDD(-30, 30, 30, -30.508333333333333);
         checkDMStoDDD(-18, 38, 46.48, -18.646244444444445);
         checkDMStoDDD(82, 58, 7.50, 82.96875);
+        checkDMStoDDD(67, 36, 14.36, 67.60398889);
     }
 
     private void checkDMStoDDD(int deg, int min, double sec, double degExpected) {
         dms = new DMSCoords(deg, min, sec);
         ddd = mConverter.convert(dms);
-        assertEquals(degExpected, ddd.getDeg(), 1e-10);
+        assertEquals(degExpected, ddd.getDeg(), 1e-8);
     }
 
     public void testConvertDDDtoDMS() {
+        checkDDDtoDMS(67.60398889, 67, 36, 14.36);
         checkDDDtoDMS(55.8, 55, 48, 0.0);
         checkDDDtoDMS(30.0, 30, 0, 0.0);
         checkDDDtoDMS(60.9554, 60, 57, 19.44);
