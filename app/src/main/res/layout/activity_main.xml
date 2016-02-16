@@ -51,7 +51,7 @@
         <EditText
             android:layout_width="@dimen/dms_width"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/latSec"
             android:layout_toRightOf="@id/latMinLabel" />
@@ -107,7 +107,7 @@
         <EditText
             android:layout_width="@dimen/dms_width"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/lonSec"
             android:layout_alignBottom="@id/lonMin"
@@ -159,7 +159,7 @@
         <EditText
             android:layout_width="@dimen/deg_width"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/latDecimal"
             android:layout_alignParentTop="true"
@@ -179,7 +179,7 @@
         <EditText
             android:layout_width="@dimen/deg_width"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/lonDecimal"
             android:layout_below="@+id/latDecimal" />

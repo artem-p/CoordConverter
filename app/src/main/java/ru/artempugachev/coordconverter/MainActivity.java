@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 
 public class MainActivity extends ActionBarActivity {
+    //  todo сделать инпуты по гайдлайнам, со сдвигающимся лэйблами
     // todo десятичный вывод ограничить до 7 знаков
     @Override
     protected void onCreate(Bundle savedInstanceState) {
