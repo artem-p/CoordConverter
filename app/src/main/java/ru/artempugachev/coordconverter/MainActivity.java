@@ -7,10 +7,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -88,6 +88,14 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         public void onClick(View v) {
+            try {
+                // todo lat и lon extends dmscoords
+                mConverter.checkDmsCoordinates(new Lat(mLatDeg.getText(), mLatMin.getText(), mLatSec.getText()),
+                        new Lon(mLonDeg.getText(), mLonMin.getText(), mLonSec.getText()));
+            }
+            catch (WrongCoordinatesException e) {
+                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
 
         }
     }
@@ -106,14 +114,5 @@ public class MainActivity extends ActionBarActivity {
         spinner.setAdapter(spinnerAdapter);
     }
 
-    private void checkCoordinates() throws WrongCoordinatesException{
-        //  Проверяем координаты на попадание в диапазоны
-        throw new WrongCoordinatesException("Неверное значение координат");
-    }
 
-    private class WrongCoordinatesException extends Exception {
-        public WrongCoordinatesException(String message) {
-            super(message);
-        }
-    }
 }
