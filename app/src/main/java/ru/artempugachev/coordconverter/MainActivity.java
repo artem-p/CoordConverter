@@ -5,8 +5,12 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -16,6 +20,9 @@ public class MainActivity extends ActionBarActivity {
     private Toolbar mToolbar;
     private Spinner mLatSpinner;
     private Spinner mLonSpinner;
+    private Converter mConverter;
+    private TextView mLatDeg, mLatMin, mLatSec, mLonDeg, mLonMin, mLonSec, mDecLat, mDecLon;
+    private ImageButton mDmsToDdBtn, mDdToDmsBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +33,8 @@ public class MainActivity extends ActionBarActivity {
         setSupportActionBar(mToolbar);
 
         createViews();
+
+        mConverter = new Converter();
     }
 
 
@@ -54,6 +63,19 @@ public class MainActivity extends ActionBarActivity {
 
 
     private void createViews() {
+        mLatDeg = (TextView) findViewById(R.id.latDeg);
+        mLatMin = (TextView) findViewById(R.id.latMin);
+        mLatSec = (TextView) findViewById(R.id.latSec);
+        mLonDeg = (TextView) findViewById(R.id.lonDeg);
+        mLonMin = (TextView) findViewById(R.id.lonMin);
+        mLonSec = (TextView) findViewById(R.id.lonSec);
+        mDecLat = (TextView) findViewById(R.id.latDecimal);
+        mDecLon = (TextView) findViewById(R.id.lonDecimal);
+        mDmsToDdBtn = (ImageButton) findViewById(R.id.btnDmsToDeg);
+        mDdToDmsBtn = (ImageButton) findViewById(R.id.btnDegToDms);
+        mDmsToDdBtn.setOnClickListener(new dmsToDdListener());
+        mDdToDmsBtn.setOnClickListener(new ddToDmsListener());
+
         String latLabels[] = {"N", "S"};
         String lonLabels[] = {"E", "W"};
         mLatSpinner = (Spinner) findViewById(R.id.latSpinner);
@@ -62,9 +84,36 @@ public class MainActivity extends ActionBarActivity {
         populateCoordinateSpinner(lonLabels, mLonSpinner);
     }
 
+    private class dmsToDdListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+
+        }
+    }
+
+    private class ddToDmsListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+
+        }
+    }
+
     private void populateCoordinateSpinner(String[] labels, Spinner spinner) {
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, labels);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
+    }
+
+    private void checkCoordinates() throws WrongCoordinatesException{
+        //  Проверяем координаты на попадание в диапазоны
+        throw new WrongCoordinatesException("Неверное значение координат");
+    }
+
+    private class WrongCoordinatesException extends Exception {
+        public WrongCoordinatesException(String message) {
+            super(message);
+        }
     }
 }
