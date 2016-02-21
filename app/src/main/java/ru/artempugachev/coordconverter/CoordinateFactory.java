@@ -11,10 +11,10 @@ public abstract class CoordinateFactory {
 
 
 abstract class Coordinate {
-    protected int min;
-    protected int max;
+    protected int minVal;
+    protected int maxVal;
 
-    protected abstract boolean isInDiapazon();
+    protected abstract boolean isRightCoords(); //  Проверяем, попадают ли координаты в диапазон -90;90 или -180;180
 }
 
 
@@ -22,8 +22,10 @@ class Dcoords extends Coordinate{
     //  Координаты в виде градусов с десятичной частью
     private double deg;
 
-    public Dcoords(double deg) {
+    public Dcoords(double deg, int minVal, int maxVal) {
         this.deg = deg;
+        this.minVal = minVal;
+        this.maxVal = maxVal;
     }
 
     public double getDeg() {
@@ -34,23 +36,31 @@ class Dcoords extends Coordinate{
         this.deg = deg;
     }
 
+
     @Override
-    protected boolean isInDiapazon() {
-        return false;
+    protected boolean isRightCoords() {
+        boolean isRightCoords = false;
+        if(this.minVal <= this.deg && this.deg <= this.maxVal) {
+            isRightCoords = true;
+        }
+
+        return isRightCoords;
     }
 }
 
 
-public class DMSCoords {
+class DMSCoords extends Coordinate{
     //  Координаты в виде градусов, минут и секунд с десятичной дробью
-    protected int deg;
-    protected int min;
-    protected double sec;
+    private int deg;
+    private int min;
+    private double sec;
 
-    public DMSCoords(int deg, int min, double sec) {
+    public DMSCoords(int deg, int min, double sec, int minVal, int maxVal) {
         this.deg = deg;
         this.min = min;
         this.sec = sec;
+        this.minVal = minVal;
+        this.maxVal = maxVal;
     }
 
     public int getDeg() {
@@ -77,24 +87,16 @@ public class DMSCoords {
         this.sec = sec;
     }
 
-}
 
-class DMSLat extends DMSCoords {
-
-    public DMSLat(int deg, int min, double sec) {
-        super(deg, min, sec);
-    }
-
-    public boolean isRightCoords() {
-        //  Проверяем, что координаты попадают в заданный диапазон
+    @Override
+    protected boolean isRightCoords() {
         boolean isRightCoords = false;
 
-        if(-90 <= this.deg && this.deg <= 90 &&
+        if(this.minVal <= this.deg && this.deg <= this.maxVal &&
                 0 <= this.min && this.min <= 59 &&
                 0 <= this.sec && this.sec <= 59) {
             isRightCoords = true;
         }
-
         return isRightCoords;
     }
 }
