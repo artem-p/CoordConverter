@@ -7,7 +7,42 @@ package ru.artempugachev.coordconverter;
 public abstract class CoordinateFactory {
     public abstract Dcoords createDcoords(double deg);
     public abstract DMSCoords createDMSCoords(int deg, int min, double sec);
+
+    private Coordinate createCoordinate(CoordinateFactory factory, double deg) {
+        return factory.createDcoords(deg);
+    }
+
+    private Coordinate createCoordinate(CoordinateFactory factory,
+                                        int deg, int min, double sec) {
+        return factory.createDMSCoords(deg, min, sec);
+    }
+
+    private class LonFactory extends CoordinateFactory {
+        @Override
+        public Dcoords createDcoords(double deg) {
+            return new Dcoords(deg, -180, 180);
+        }
+
+        @Override
+        public DMSCoords createDMSCoords(int deg, int min, double sec) {
+            return new DMSCoords(deg, min, sec, -180, 180);
+        }
+    }
+
+    public class LatFactory extends CoordinateFactory {
+        @Override
+        public Dcoords createDcoords(double deg) {
+            return new Dcoords(deg, -90, 90);
+        }
+
+
+        @Override
+        public DMSCoords createDMSCoords(int deg, int min, double sec) {
+            return new DMSCoords(deg, min, sec, -90, 90);
+        }
+    }
 }
+
 
 
 abstract class Coordinate {
