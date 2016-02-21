@@ -5,8 +5,8 @@ package ru.artempugachev.coordconverter;
  */
 
 public abstract class CoordinateFactory {
-    public abstract Dcoords createDcoords();
-    public abstract DMSCoords createDMSCoords();
+    public abstract Dcoords createDcoords(double deg);
+    public abstract DMSCoords createDMSCoords(int deg, int min, double sec);
 }
 
 

@@ -5,12 +5,13 @@ package ru.artempugachev.coordconverter;
  */
 public class LatFactory extends CoordinateFactory {
     @Override
-    public Dcoords createDcoords() {
-        return null;
+    public Dcoords createDcoords(double deg) {
+        return new Dcoords(deg, -90, 90);
     }
 
+
     @Override
-    public DMSCoords createDMSCoords() {
-        return null;
+    public DMSCoords createDMSCoords(int deg, int min, double sec) {
+        return new DMSCoords(deg, min, sec, -90, 90);
     }
 }
