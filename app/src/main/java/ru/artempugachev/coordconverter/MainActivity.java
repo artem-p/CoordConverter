@@ -20,7 +20,7 @@ public class MainActivity extends ActionBarActivity {
     private Toolbar mToolbar;
     private Spinner mLatSpinner;
     private Spinner mLonSpinner;
-    private Converter mConverter;
+//    private Converter mConverter;
     private TextView mLatDeg, mLatMin, mLatSec, mLonDeg, mLonMin, mLonSec, mDecLat, mDecLon;
     private ImageButton mDmsToDdBtn, mDdToDmsBtn;
 
@@ -34,7 +34,7 @@ public class MainActivity extends ActionBarActivity {
 
         createViews();
 
-        mConverter = new Converter();
+//        mConverter = new Converter();
     }
 
 
@@ -88,14 +88,14 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         public void onClick(View v) {
-            try {
-                // todo lat и lon extends dmscoords
-                mConverter.checkDmsCoordinates(new Lat(mLatDeg.getText(), mLatMin.getText(), mLatSec.getText()),
-                        new Lon(mLonDeg.getText(), mLonMin.getText(), mLonSec.getText()));
-            }
-            catch (WrongCoordinatesException e) {
-                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
+//            try {
+//                // todo lat и lon extends dmscoords
+//                mConverter.checkDmsCoordinates(new Lat(mLatDeg.getText(), mLatMin.getText(), mLatSec.getText()),
+//                        new Lon(mLonDeg.getText(), mLonMin.getText(), mLonSec.getText()));
+//            }
+//            catch (WrongCoordinatesException e) {
+//                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
 
         }
     }
