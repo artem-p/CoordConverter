@@ -38,18 +38,18 @@ public class CoordinateTest extends TestCase {
 
         lat = new Lat(91);
         assertFalse(lat.isRightCoords());
-//
-//        Lon lon = new Lon(45);
-//        assertTrue(lon.isRightCoords());
 
-//        lon = new Lon(0.0);
-//        assertTrue(lon.isRightCoords());
-//
-//        lon = new Lon(-181);
-//        assertFalse(lon.isRightCoords());
-//
-//        lon = new Lon(181);
-//        assertFalse(lon.isRightCoords());
+        Lon lon = new Lon(45);
+        assertTrue(lon.isRightCoords());
+
+        lon = new Lon(0.0);
+        assertTrue(lon.isRightCoords());
+
+        lon = new Lon(-181);
+        assertFalse(lon.isRightCoords());
+
+        lon = new Lon(181);
+        assertFalse(lon.isRightCoords());
     }
 
 
