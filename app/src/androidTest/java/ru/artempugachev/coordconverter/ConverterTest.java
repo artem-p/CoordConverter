@@ -45,8 +45,8 @@ public class ConverterTest extends TestCase {
 
         Lon lon = new Lon(deg);
 
-        assertEquals(degExpected, lat.getIntD());
-        assertEquals(minExpected, lat.getIntMin());
-        assertEquals(secExpected, lat.getSec(), 1e-10);
+        assertEquals(degExpected, lon.getIntD());
+        assertEquals(minExpected, lon.getIntMin());
+        assertEquals(secExpected, lon.getSec(), 1e-10);
     }
 }

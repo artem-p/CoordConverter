@@ -31,11 +31,15 @@ public abstract class Coordinate {
         return deg;
     }
 
-    public int getIntD() {
-        //  Целочисленное значение градусов
-
-
+    public int getIntAbsD() {
+        //  Целочисленное значение градусов по модулю
         return new BigDecimal((int)Math.abs(this.deg)).intValue();
+    }
+
+    public int getIntD() {
+        int deg = this.getIntAbsD();
+        if(this.deg <0) deg = -deg;
+        return deg;
     }
 
     public int getIntMin() {
@@ -56,7 +60,7 @@ public abstract class Coordinate {
         //  Дробную часть градуса выражаем в минутах
         String sDeg = String.valueOf(Math.abs(this.deg));
         BigDecimal absDeg = new BigDecimal(sDeg).abs();
-        BigDecimal degDecimal = absDeg.subtract(new BigDecimal(this.getIntD()));
+        BigDecimal degDecimal = absDeg.subtract(new BigDecimal(this.getIntAbsD()));
         BigDecimal min = (degDecimal.multiply(new BigDecimal("60")));
         return min;
     }
