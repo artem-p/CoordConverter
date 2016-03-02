@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -94,8 +95,26 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         public void onClick(View v) {
-            double dLat = Double.parseDouble((String) mDecLat.getText());
-            double dLon = Double.parseDouble((String) mDecLat.getText());
+            String sLat = String.valueOf(mDecLat.getText());
+            String sLon = String.valueOf(mDecLat.getText());
+            double latVal = 99999.0;
+            double lonVal = 99999.0;
+
+            if(!sLat.isEmpty()) latVal = Double.parseDouble(sLat);
+            if(!sLon.isEmpty()) lonVal = Double.parseDouble(sLon);
+
+            Lat dLat = new Lat(latVal);
+            Lon dLon = new Lon(lonVal);
+
+            if(dLat.isRightCoords()) {
+                if(dLon.isRightCoords()) {
+                    //  Устанавливаем значения в поля dms
+                } else {
+                    Toast.makeText(MainActivity.this, "Неверное значение долготы", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(MainActivity.this, "Неверное значение широты", Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
