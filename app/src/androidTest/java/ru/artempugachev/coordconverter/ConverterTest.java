@@ -8,23 +8,24 @@ import junit.framework.TestCase;
 public class ConverterTest extends TestCase {
 
 
-//    public void testConvertDMStoDDD(){
-//        checkDMStoDDD(0, 0, 0, 0.0);
-//        checkDMStoDDD(30, 30, 0, 30.5);
-//        checkDMStoDDD(30, 30, 30, 30.508333333333333);
-//        checkDMStoDDD(-30, 30, 30, -30.508333333333333);
-//        checkDMStoDDD(-18, 38, 46.48, -18.646244444444445);
-//        checkDMStoDDD(82, 58, 7.50, 82.96875);
-//        checkDMStoDDD(67, 36, 14.36, 67.60398889);
-//        checkDMStoDDD(63, 23, 29.48, 63.39152222);
-//    }
+    public void testConvertDMStoDDD(){
+        checkDMStoDDD(0, 0, 0, 0.0);
+        checkDMStoDDD(30, 30, 0, 30.5);
+        checkDMStoDDD(30, 30, 30, 30.508333333333333);
+        checkDMStoDDD(-30, 30, 30, -30.508333333333333);
+        checkDMStoDDD(-18, 38, 46.48, -18.646244444444445);
+        checkDMStoDDD(82, 58, 7.50, 82.96875);
+        checkDMStoDDD(67, 36, 14.36, 67.60398889);
+        checkDMStoDDD(63, 23, 29.48, 63.39152222);
+    }
 //
-//    private void checkDMStoDDD(int deg, int min, double sec, double degExpected) {
-//        dms = (DMSCoords)
-//        dms = new DMSCoords(deg, min, sec);
-//        ddd = mConverter.convert(dms);
-//        assertEquals(degExpected, ddd.getDeg(), 1e-8);
-//    }
+    private void checkDMStoDDD(int deg, int min, double sec, double degExpected) {
+        Lat lat = new Lat(deg, min, sec);
+        assertEquals(degExpected, lat.getD(), 1e-8);
+
+        Lon lon = new Lon(deg, min, sec);
+        assertEquals(degExpected, lon.getD(), 1e-8);
+    }
 
     public void testConvertDDDtoDMS() {
         checkDDDtoDMS(-34.30714385628803, -34, 18, 25.717882636908);
