@@ -82,7 +82,7 @@ public abstract class Coordinate {
         boolean isRightCoords = false;
         if(this.minVal <= this.deg && this.deg <= this.maxVal) {
             if(0 <= this.min && this.min <= 59) {
-                if(0 <= this.min && this.min <= 59) {
+                if(0 <= this.sec && this.sec <= 59) {
                     isRightCoords = true;
                 }
             }

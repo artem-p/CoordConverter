@@ -26,6 +26,9 @@ public class CoordinateTest extends TestCase {
 
         lon = new Lon(18, 66, 0);
         assertFalse(lon.isRightCoords());
+
+        lon = new Lon(30, 30, -5);
+        assertFalse(lon.isRightCoords());
     }
     public void testDDDRightCoordinates() {
 

@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -72,8 +71,8 @@ public class MainActivity extends ActionBarActivity {
         mDecLon = (TextView) findViewById(R.id.lonDecimal);
         mDmsToDdBtn = (ImageButton) findViewById(R.id.btnDmsToDeg);
         mDdToDmsBtn = (ImageButton) findViewById(R.id.btnDegToDms);
-        mDmsToDdBtn.setOnClickListener(new dmsToDdListener());
-        mDdToDmsBtn.setOnClickListener(new ddToDmsListener());
+        mDmsToDdBtn.setOnClickListener(new dmsToDListener());
+        mDdToDmsBtn.setOnClickListener(new dToDmsListener());
 
         String latLabels[] = {"N", "S"};
         String lonLabels[] = {"E", "W"};
@@ -83,28 +82,22 @@ public class MainActivity extends ActionBarActivity {
         populateCoordinateSpinner(lonLabels, mLonSpinner);
     }
 
-    private class dmsToDdListener implements View.OnClickListener{
+    private class dmsToDListener implements View.OnClickListener{
 
         @Override
         public void onClick(View v) {
-//            try {
-//                // todo lat и lon extends dmscoords
-//                mConverter.checkDmsCoordinates(new Lat(mLatDeg.getText(), mLatMin.getText(), mLatSec.getText()),
-//                        new Lon(mLonDeg.getText(), mLonMin.getText(), mLonSec.getText()));
-//            }
-//            catch (WrongCoordinatesException e) {
-//                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
 
         }
     }
 
-    private class ddToDmsListener implements View.OnClickListener {
+    private class dToDmsListener implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
-
+            double dLat = Double.parseDouble((String) mDecLat.getText());
+            double dLon = Double.parseDouble((String) mDecLat.getText());
         }
+
     }
 
     private void populateCoordinateSpinner(String[] labels, Spinner spinner) {
