@@ -34,7 +34,7 @@
             <EditText
                 android:layout_width="@dimen/dms_width"
                 android:layout_height="wrap_content"
-                android:inputType="number"
+                android:inputType="numberSigned"
                 android:ems="10"
                 android:id="@+id/latDeg"
                 android:layout_alignParentTop="true"
@@ -98,7 +98,7 @@
             <EditText
                 android:layout_width="@dimen/dms_width"
                 android:layout_height="wrap_content"
-                android:inputType="number"
+                android:inputType="numberSigned"
                 android:ems="10"
                 android:id="@+id/lonDeg"
                 android:hint='°'
@@ -194,7 +194,7 @@
             <EditText
                 android:layout_width="@dimen/deg_width"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
+                android:inputType="numberDecimal|numberSigned"
                 android:ems="10"
                 android:id="@+id/latDecimal"
                 android:hint="°"
@@ -210,7 +210,7 @@
             <EditText
                 android:layout_width="@dimen/deg_width"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
+                android:inputType="numberDecimal|numberSigned"
                 android:ems="10"
                 android:id="@+id/lonDecimal"
                 android:hint="°"
