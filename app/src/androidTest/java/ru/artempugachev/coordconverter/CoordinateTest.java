@@ -2,9 +2,7 @@ package ru.artempugachev.coordconverter;
 
 import junit.framework.TestCase;
 
-/**
- * Created by artem on 22.02.16.
- */
+
 public class CoordinateTest extends TestCase {
     public void testStringConstructors() {
         Lat lat = new Lat("");
@@ -13,11 +11,26 @@ public class CoordinateTest extends TestCase {
         lat = new Lat("35.5");
         assertEquals(35.5, lat.getD(), 1e-1);
 
+        lat = new Lat("" , "", "");
+        assertEquals(99999.0, lat.getD());
+
+        lat = new Lat("30", "0", "0");
+        assertEquals(30.0, lat.getD());
+
         Lon lon = new Lon("");
         assertEquals(99999.0, lon.getD(), 1e-1);
 
         lon = new Lon("-178.3");
         assertEquals(-178.3, lon.getD(), 1e-1);
+
+        lon = new Lon("", "", "");
+        assertEquals(99999.0, lon.getD(), 1e-1);
+
+        lon = new Lon("-50", "", "");
+        assertEquals(-50, lon.getD(), 1e-1);
+
+        lon = new Lon("-50", "30", "");
+        assertEquals(30, lon.getIntMin());
     }
 
     public void testDMSRightCoordinates(){

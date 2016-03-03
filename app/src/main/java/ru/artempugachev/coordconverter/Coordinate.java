@@ -3,9 +3,7 @@ package ru.artempugachev.coordconverter;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-/**
- * Created by user on 27.02.2016.
- */
+
 public abstract class Coordinate {
     protected int minVal;
     protected int maxVal;
@@ -35,6 +33,28 @@ public abstract class Coordinate {
         this.deg = dms2deg(deg, min, sec);
         this.min = min;
         this.sec = sec;
+    }
+
+    public Coordinate (String sDeg, String sMin, String sSec) {
+        this.deg = 99999.0;
+        this.min = 99999.0;
+        this.sec = 99999.0;
+
+        if(!sDeg.isEmpty()) {
+            this.deg = Integer.parseInt(sDeg);
+        }
+
+        if(!sMin.isEmpty()) {
+            this.min = Integer.parseInt(sMin);
+        }
+
+        if(!sSec.isEmpty()) {
+            this.sec = Double.parseDouble(sSec);
+        }
+
+//        this.deg = dms2deg(deg, min, sec);
+//        this.min = min;
+//        this.sec = sec;
     }
 
     public double getD() {
@@ -123,6 +143,7 @@ public abstract class Coordinate {
 //    }
 }
 
+
 class Lat extends Coordinate {
 
     public Lat(double deg) {
@@ -140,7 +161,12 @@ class Lat extends Coordinate {
         this.setBorders(-90, 90);
     }
 
+    public Lat(String sDeg, String sMin, String sSec) {
+        super(sDeg, sMin, sSec);
+        this.setBorders(-90, 90);
+    }
 }
+
 
 class Lon extends Coordinate {
 
@@ -156,6 +182,11 @@ class Lon extends Coordinate {
 
     public Lon(int deg, int min, double sec) {
         super(deg, min, sec);
+        this.setBorders(-180, 180);
+    }
+
+    public Lon(String sDeg, String sMin, String sSec) {
+        super(sDeg, sMin, sSec);
         this.setBorders(-180, 180);
     }
 }
