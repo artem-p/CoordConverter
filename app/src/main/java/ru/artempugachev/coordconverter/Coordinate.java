@@ -20,6 +20,17 @@ public abstract class Coordinate {
         this.sec = 0;
     }
 
+    public Coordinate (String sDeg) {
+        double degVal = 99999.0;
+        if(!sDeg.isEmpty()) {
+            degVal = Double.parseDouble(sDeg);
+        }
+
+        this.deg = degVal;
+        this.min = 0;
+        this.sec = 0;
+    }
+
     public Coordinate (int deg, int min, double sec) {
         this.deg = dms2deg(deg, min, sec);
         this.min = min;
@@ -90,6 +101,12 @@ public abstract class Coordinate {
 
         return isRightCoords;
     }
+
+    protected void setBorders(int min, int max) {
+        //  Устанавливаем границы координат
+        this.minVal = min;
+        this.maxVal = max;
+    }
 //    public DMSCoords convert(Dcoords dcoords) {
 //
 //        String sDeg = String.valueOf(Math.abs(dcoords.getDeg()));
@@ -110,28 +127,35 @@ class Lat extends Coordinate {
 
     public Lat(double deg) {
         super(deg);
-        this.minVal = -90;
-        this.maxVal = 90;
+        this.setBorders(-90, 90);
+    }
+
+    public Lat(String sDeg) {
+        super(sDeg);
+        this.setBorders(-90, 90);
     }
 
     public Lat(int deg, int min, double sec) {
         super(deg, min, sec);
-        this.minVal = -90;
-        this.maxVal = 90;
+        this.setBorders(-90, 90);
     }
+
 }
 
 class Lon extends Coordinate {
 
     public Lon(double deg) {
         super(deg);
-        this.minVal = -180;
-        this.maxVal = 180;
+        this.setBorders(-180, 180);
+    }
+
+    public Lon(String sDeg) {
+        super(sDeg);
+        this.setBorders(-180, 180);
     }
 
     public Lon(int deg, int min, double sec) {
         super(deg, min, sec);
-        this.minVal = -180;
-        this.maxVal = 180;
+        this.setBorders(-180, 180);
     }
 }

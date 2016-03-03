@@ -98,14 +98,9 @@ public class MainActivity extends ActionBarActivity {
         public void onClick(View v) {
             String sLat = String.valueOf(mDecLat.getText());
             String sLon = String.valueOf(mDecLon.getText());
-            double latVal = 99999.0;
-            double lonVal = 99999.0;
 
-            if(!sLat.isEmpty()) latVal = Double.parseDouble(sLat);
-            if(!sLon.isEmpty()) lonVal = Double.parseDouble(sLon);
-
-            Lat dLat = new Lat(latVal);
-            Lon dLon = new Lon(lonVal);
+            Lat dLat = new Lat(sLat);
+            Lon dLon = new Lon(sLon);
 
             if(dLat.isRightCoords()) {
                 if(dLon.isRightCoords()) {
