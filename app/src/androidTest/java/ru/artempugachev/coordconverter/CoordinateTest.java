@@ -6,6 +6,20 @@ import junit.framework.TestCase;
  * Created by artem on 22.02.16.
  */
 public class CoordinateTest extends TestCase {
+    public void testStringConstructors() {
+        Lat lat = new Lat("");
+        assertEquals(99999.0, lat.getD(), 1e-1);
+
+        lat = new Lat("35.5");
+        assertEquals(35.5, lat.getD(), 1e-1);
+
+        Lon lon = new Lon("");
+        assertEquals(99999.0, lon.getD(), 1e-1);
+
+        lon = new Lon("-178.3");
+        assertEquals(-178.3, lon.getD(), 1e-1);
+    }
+
     public void testDMSRightCoordinates(){
         Lat lat;
         lat = new Lat(-90, 1, 0);
