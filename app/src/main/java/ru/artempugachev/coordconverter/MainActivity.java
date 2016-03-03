@@ -117,6 +117,19 @@ public class MainActivity extends ActionBarActivity {
                     mLonDeg.setText(String.valueOf(dLon.getIntD()));
                     mLonMin.setText(String.valueOf(dLon.getIntMin()));
                     mLonSec.setText(String.valueOf(dLon.getSec()));
+
+                    //  Устанавливаем спиннер с полушариями
+                    if(dLat.getIntD() >= 0) {
+                        mLatSpinner.setSelection(0);            //  N
+                    } else {
+                        mLatSpinner.setSelection(1);            //  S
+                    }
+
+                    if(dLon.getIntD() >= 0) {
+                        mLonSpinner.setSelection(0);            //  E
+                    } else {
+                        mLonSpinner.setSelection(1);            //  W
+                    }
                 } else {
                     Toast.makeText(MainActivity.this, "Неверное значение долготы", Toast.LENGTH_SHORT).show();
                 }
