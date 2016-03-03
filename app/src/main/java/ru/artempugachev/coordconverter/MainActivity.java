@@ -1,5 +1,6 @@
 package ru.artempugachev.coordconverter;
 
+import android.support.annotation.StringDef;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -96,7 +97,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public void onClick(View v) {
             String sLat = String.valueOf(mDecLat.getText());
-            String sLon = String.valueOf(mDecLat.getText());
+            String sLon = String.valueOf(mDecLon.getText());
             double latVal = 99999.0;
             double lonVal = 99999.0;
 
@@ -109,6 +110,13 @@ public class MainActivity extends ActionBarActivity {
             if(dLat.isRightCoords()) {
                 if(dLon.isRightCoords()) {
                     //  Устанавливаем значения в поля dms
+                    mLatDeg.setText(String.valueOf(dLat.getIntD()));
+                    mLatMin.setText(String.valueOf(dLat.getIntMin()));
+                    mLatSec.setText(String.valueOf(dLat.getSec()));
+
+                    mLonDeg.setText(String.valueOf(dLon.getIntD()));
+                    mLonMin.setText(String.valueOf(dLon.getIntMin()));
+                    mLonSec.setText(String.valueOf(dLon.getSec()));
                 } else {
                     Toast.makeText(MainActivity.this, "Неверное значение долготы", Toast.LENGTH_SHORT).show();
                 }
