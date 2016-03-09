@@ -91,11 +91,26 @@ public class MainActivity extends ActionBarActivity {
             String latDeg = String.valueOf(mLatDeg.getText());
             String latMin = String.valueOf(mLatMin.getText());
             String latSec = String.valueOf(mLatSec.getText());
+            String latLabel = (String) mLatSpinner.getSelectedItem();
             String lonDeg = String.valueOf(mLonDeg.getText());
             String lonMin = String.valueOf(mLonMin.getText());
             String lonSec = String.valueOf(mLonSec.getText());
+            String lonLabel = (String) mLonSpinner.getSelectedItem();
 
+            Lat lat = new Lat(latDeg, latMin, latSec, latLabel);
+            Lon lon = new Lon(lonDeg, lonMin, lonSec, lonLabel);
 
+            if(lat.isRightCoords()) {
+                if (lon.isRightCoords()) {
+                    //  Устанавливаем значения в ddd
+                    mDecLat.setText(String.valueOf(lat.getD()));
+                    mDecLon.setText(String.valueOf(lon.getD()));
+                } else {
+                    Toast.makeText(MainActivity.this, "Неверное значение долготы", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(MainActivity.this, "Неверное значение широты", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
