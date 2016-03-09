@@ -88,6 +88,13 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         public void onClick(View v) {
+            String latDeg = String.valueOf(mLatDeg.getText());
+            String latMin = String.valueOf(mLatMin.getText());
+            String latSec = String.valueOf(mLatSec.getText());
+            String lonDeg = String.valueOf(mLonDeg.getText());
+            String lonMin = String.valueOf(mLonMin.getText());
+            String lonSec = String.valueOf(mLonSec.getText());
+
 
         }
     }

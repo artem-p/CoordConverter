@@ -2,6 +2,7 @@ package ru.artempugachev.coordconverter;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.Objects;
 
 
 public abstract class Coordinate {
@@ -35,24 +36,24 @@ public abstract class Coordinate {
         this.sec = sec;
     }
 
-    public Coordinate (String sDeg, String sMin, String sSec) {
+    public Coordinate (String sDeg, String sMin, String sSec, String coordLabel) {
         this.deg = 99999.0;
         this.min = 99999.0;
         this.sec = 99999.0;
 
-        if(!sDeg.isEmpty()) {
-            this.deg = Integer.parseInt(sDeg);
+        if(!sDeg.isEmpty() && !sMin.isEmpty() && !sSec.isEmpty()) {
+            int iDeg = Integer.parseInt(sDeg);
+            int iMin = Integer.parseInt(sMin);
+            double dSec = Double.parseDouble(sSec);
+
+            this.deg = dms2deg(iDeg, iMin, dSec);
+            this.min = iMin;
+            this.sec = dSec;
+            if(coordLabel.equals("S") || coordLabel.equals("W")){
+                this.deg = -this.deg;
+            }
         }
 
-        if(!sMin.isEmpty()) {
-            this.min = Integer.parseInt(sMin);
-        }
-
-        if(!sSec.isEmpty()) {
-            this.sec = Double.parseDouble(sSec);
-        }
-
-//        this.deg = dms2deg(deg, min, sec);
 //        this.min = min;
 //        this.sec = sec;
     }
@@ -161,8 +162,8 @@ class Lat extends Coordinate {
         this.setBorders(-90, 90);
     }
 
-    public Lat(String sDeg, String sMin, String sSec) {
-        super(sDeg, sMin, sSec);
+    public Lat(String sDeg, String sMin, String sSec, String coordLabel) {
+        super(sDeg, sMin, sSec, coordLabel);
         this.setBorders(-90, 90);
     }
 }
@@ -185,8 +186,8 @@ class Lon extends Coordinate {
         this.setBorders(-180, 180);
     }
 
-    public Lon(String sDeg, String sMin, String sSec) {
-        super(sDeg, sMin, sSec);
+    public Lon(String sDeg, String sMin, String sSec, String coordLabel) {
+        super(sDeg, sMin, sSec, coordLabel);
         this.setBorders(-180, 180);
     }
 }
