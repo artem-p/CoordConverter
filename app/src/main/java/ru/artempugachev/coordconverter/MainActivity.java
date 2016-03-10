@@ -53,12 +53,25 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_refresh:
+                clearFields();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void clearFields() {
+        //  Сбрасываем все поля
+        mLatDeg.setText("");
+        mLatMin.setText("");
+        mLatSec.setText("");
+        mLonDeg.setText("");
+        mLonMin.setText("");
+        mLonSec.setText("");
+        mDecLat.setText("");
+        mDecLon.setText("");
     }
 
 
