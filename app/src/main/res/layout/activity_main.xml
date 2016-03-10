@@ -34,7 +34,7 @@
             <EditText
                 android:layout_width="@dimen/dms_width"
                 android:layout_height="wrap_content"
-                android:inputType="numberSigned"
+                android:inputType="number"
                 android:ems="10"
                 android:id="@+id/latDeg"
                 android:layout_alignParentTop="true"
@@ -98,7 +98,7 @@
             <EditText
                 android:layout_width="@dimen/dms_width"
                 android:layout_height="wrap_content"
-                android:inputType="numberSigned"
+                android:inputType="number"
                 android:ems="10"
                 android:id="@+id/lonDeg"
                 android:hint='°'

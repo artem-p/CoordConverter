@@ -127,11 +127,11 @@ public class MainActivity extends ActionBarActivity {
             if(dLat.isRightCoords()) {
                 if(dLon.isRightCoords()) {
                     //  Устанавливаем значения в поля dms
-                    mLatDeg.setText(String.valueOf(dLat.getIntD()));
+                    mLatDeg.setText(String.valueOf(Math.abs(dLat.getIntD())));
                     mLatMin.setText(String.valueOf(dLat.getIntMin()));
                     mLatSec.setText(String.valueOf(dLat.getSec()));
 
-                    mLonDeg.setText(String.valueOf(dLon.getIntD()));
+                    mLonDeg.setText(String.valueOf(Math.abs(dLon.getIntD())));
                     mLonMin.setText(String.valueOf(dLon.getIntMin()));
                     mLonSec.setText(String.valueOf(dLon.getSec()));
 
