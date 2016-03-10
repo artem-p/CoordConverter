@@ -1,6 +1,5 @@
 package ru.artempugachev.coordconverter;
 
-import android.support.annotation.StringDef;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +12,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
+
 
 public class MainActivity extends ActionBarActivity {
     // todo десятичный вывод ограничить до 7 знаков
@@ -23,6 +24,8 @@ public class MainActivity extends ActionBarActivity {
 //    private Converter mConverter;
     private TextView mLatDeg, mLatMin, mLatSec, mLonDeg, mLonMin, mLonSec, mDecLat, mDecLon;
     private ImageButton mDmsToDdBtn, mDdToDmsBtn;
+    private DecimalFormat mDmsSecFormat = new DecimalFormat();
+    private DecimalFormat mDddformat = new DecimalFormat();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,9 @@ public class MainActivity extends ActionBarActivity {
         setSupportActionBar(mToolbar);
 
         createViews();
+
+        mDmsSecFormat.setMaximumFractionDigits(4);
+        mDddformat.setMaximumFractionDigits(7);
 
 //        mConverter = new Converter();
     }
@@ -101,6 +107,7 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         public void onClick(View v) {
+            setMissingVals();
             String latDeg = String.valueOf(mLatDeg.getText());
             String latMin = String.valueOf(mLatMin.getText());
             String latSec = String.valueOf(mLatSec.getText());
@@ -116,8 +123,10 @@ public class MainActivity extends ActionBarActivity {
             if(lat.isRightCoords()) {
                 if (lon.isRightCoords()) {
                     //  Устанавливаем значения в ddd
-                    mDecLat.setText(String.valueOf(lat.getD()));
-                    mDecLon.setText(String.valueOf(lon.getD()));
+                    String sLat = mDddformat.format(lat.getD());
+                    String sLon = mDddformat.format(lon.getD());
+                    mDecLat.setText(sLat);
+                    mDecLon.setText(sLon);
                 } else {
                     Toast.makeText(MainActivity.this, "Неверное значение долготы", Toast.LENGTH_SHORT).show();
                 }
@@ -131,6 +140,7 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         public void onClick(View v) {
+            setMissingVals();
             String sLat = String.valueOf(mDecLat.getText());
             String sLon = String.valueOf(mDecLon.getText());
 
@@ -142,11 +152,15 @@ public class MainActivity extends ActionBarActivity {
                     //  Устанавливаем значения в поля dms
                     mLatDeg.setText(String.valueOf(Math.abs(dLat.getIntD())));
                     mLatMin.setText(String.valueOf(dLat.getIntMin()));
-                    mLatSec.setText(String.valueOf(dLat.getSec()));
+
+                    String sLatSec = mDmsSecFormat.format(dLat.getSec());
+                    mLatSec.setText(sLatSec);
 
                     mLonDeg.setText(String.valueOf(Math.abs(dLon.getIntD())));
                     mLonMin.setText(String.valueOf(dLon.getIntMin()));
-                    mLonSec.setText(String.valueOf(dLon.getSec()));
+
+                    String sLonSec = mDmsSecFormat.format(dLon.getSec());
+                    mLonSec.setText(String.valueOf(sLonSec));
 
                     //  Устанавливаем спиннер с полушариями
                     if(dLat.getIntD() >= 0) {
@@ -169,6 +183,24 @@ public class MainActivity extends ActionBarActivity {
         }
 
     }
+
+    private void setMissingVals() {
+        //  Устанавливаем отсутствующие значения в 0
+        setToNullIfMissing(mLatDeg);
+        setToNullIfMissing(mLatMin);
+        setToNullIfMissing(mLatSec);
+        setToNullIfMissing(mLonDeg);
+        setToNullIfMissing(mLonMin);
+        setToNullIfMissing(mLonSec);
+        setToNullIfMissing(mDecLat);
+        setToNullIfMissing(mDecLon);
+    }
+
+    private void setToNullIfMissing(TextView textView) {
+        String sVal = String.valueOf(textView.getText());
+        if(sVal.equals("")) textView.setText("0");
+    }
+
 
     private void populateCoordinateSpinner(String[] labels, Spinner spinner) {
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, labels);
