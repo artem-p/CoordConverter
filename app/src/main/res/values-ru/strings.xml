@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Координаты</string>
+    <string name="action_refresh">Сбросить</string>
+</resources>

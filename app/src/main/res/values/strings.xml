@@ -1,7 +1,4 @@
 <resources>
     <string name="app_name">CoordConverter</string>
-
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="action_refresh">Сбросить</string>
+    <string name="action_refresh">Clear</string>
 </resources>
