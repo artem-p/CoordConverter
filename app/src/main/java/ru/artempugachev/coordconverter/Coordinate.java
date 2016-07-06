@@ -5,21 +5,21 @@ import java.math.MathContext;
 import java.util.Objects;
 
 
-public abstract class Coordinate {
-    protected int minVal;
-    protected int maxVal;
+abstract class Coordinate {
+    private int minVal;
+    private int maxVal;
 
     private double deg;
-    protected double min;
-    protected double sec;
+    private double min;
+    private double sec;
 
-    public Coordinate (double deg) {
+    Coordinate (double deg) {
         this.deg = deg;
         this.min = 0;
         this.sec = 0;
     }
 
-    public Coordinate (String sDeg) {
+    Coordinate (String sDeg) {
         double degVal = 99999.0;
         if(!sDeg.isEmpty()) {
             degVal = Double.parseDouble(sDeg);
@@ -30,13 +30,13 @@ public abstract class Coordinate {
         this.sec = 0;
     }
 
-    public Coordinate (int deg, int min, double sec) {
+    Coordinate (int deg, int min, double sec) {
         this.deg = dms2deg(deg, min, sec);
         this.min = min;
         this.sec = sec;
     }
 
-    public Coordinate (String sDeg, String sMin, String sSec, String coordLabel) {
+    Coordinate (String sDeg, String sMin, String sSec, String coordLabel) {
         this.deg = 99999.0;
         this.min = 99999.0;
         this.sec = 99999.0;
@@ -58,29 +58,29 @@ public abstract class Coordinate {
 //        this.sec = sec;
     }
 
-    public double getD() {
+    double getD() {
         //  В виде градусов с десятыми
         return deg;
     }
 
-    public int getIntAbsD() {
+    private int getIntAbsD() {
         //  Целочисленное значение градусов по модулю
         return new BigDecimal((int)Math.abs(this.deg)).intValue();
     }
 
-    public int getIntD() {
+    int getIntD() {
         int deg = this.getIntAbsD();
         if(this.deg <0) deg = -deg;
         return deg;
     }
 
-    public int getIntMin() {
+    int getIntMin() {
         //  Целые минуты
 
         return getDecimalPartInMinutes().intValue();
     }
 
-    public double getSec() {
+    double getSec() {
         //  Секунды с плавающей точкой
 
         BigDecimal min = getDecimalPartInMinutes();
@@ -110,7 +110,7 @@ public abstract class Coordinate {
         return ddeg;
     }
 
-    protected boolean isRightCoords() {
+    boolean isRightCoords() {
         boolean isRightCoords = false;
         if(this.minVal <= this.deg && this.deg <= this.maxVal) {
             if(0 <= this.min && this.min <= 59) {
@@ -123,7 +123,7 @@ public abstract class Coordinate {
         return isRightCoords;
     }
 
-    protected void setBorders(int min, int max) {
+    void setBorders(int min, int max) {
         //  Устанавливаем границы координат
         this.minVal = min;
         this.maxVal = max;
@@ -147,22 +147,22 @@ public abstract class Coordinate {
 
 class Lat extends Coordinate {
 
-    public Lat(double deg) {
+    Lat(double deg) {
         super(deg);
         this.setBorders(-90, 90);
     }
 
-    public Lat(String sDeg) {
+    Lat(String sDeg) {
         super(sDeg);
         this.setBorders(-90, 90);
     }
 
-    public Lat(int deg, int min, double sec) {
+    Lat(int deg, int min, double sec) {
         super(deg, min, sec);
         this.setBorders(-90, 90);
     }
 
-    public Lat(String sDeg, String sMin, String sSec, String coordLabel) {
+    Lat(String sDeg, String sMin, String sSec, String coordLabel) {
         super(sDeg, sMin, sSec, coordLabel);
         this.setBorders(-90, 90);
     }
@@ -171,22 +171,22 @@ class Lat extends Coordinate {
 
 class Lon extends Coordinate {
 
-    public Lon(double deg) {
+    Lon(double deg) {
         super(deg);
         this.setBorders(-180, 180);
     }
 
-    public Lon(String sDeg) {
+    Lon(String sDeg) {
         super(sDeg);
         this.setBorders(-180, 180);
     }
 
-    public Lon(int deg, int min, double sec) {
+    Lon(int deg, int min, double sec) {
         super(deg, min, sec);
         this.setBorders(-180, 180);
     }
 
-    public Lon(String sDeg, String sMin, String sSec, String coordLabel) {
+    Lon(String sDeg, String sMin, String sSec, String coordLabel) {
         super(sDeg, sMin, sSec, coordLabel);
         this.setBorders(-180, 180);
     }
