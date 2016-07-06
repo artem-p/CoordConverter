@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -24,8 +26,9 @@ public class MainActivity extends ActionBarActivity {
 //    private Converter mConverter;
     private TextView mLatDeg, mLatMin, mLatSec, mLonDeg, mLonMin, mLonSec, mDecLat, mDecLon;
     private ImageButton mDmsToDdBtn, mDdToDmsBtn;
-    private DecimalFormat mDmsSecFormat = new DecimalFormat();
-    private DecimalFormat mDddformat = new DecimalFormat();
+    private NumberFormat mNf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+    private DecimalFormat mDmsSecFormat = (DecimalFormat) mNf;
+    private DecimalFormat mDddformat = (DecimalFormat) mNf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
