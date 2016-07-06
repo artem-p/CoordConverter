@@ -19,44 +19,17 @@ abstract class Coordinate {
         this.sec = 0;
     }
 
-    Coordinate (String sDeg) {
-        double degVal = 99999.0;
-        if(!sDeg.isEmpty()) {
-            degVal = Double.parseDouble(sDeg);
-        }
-
-        this.deg = degVal;
-        this.min = 0;
-        this.sec = 0;
-    }
-
-    Coordinate (int deg, int min, double sec) {
+    Coordinate (int deg, int min, double sec, String coordLabel) {
         this.deg = dms2deg(deg, min, sec);
         this.min = min;
         this.sec = sec;
-    }
 
-    Coordinate (String sDeg, String sMin, String sSec, String coordLabel) {
-        this.deg = 99999.0;
-        this.min = 99999.0;
-        this.sec = 99999.0;
-
-        if(!sDeg.isEmpty() && !sMin.isEmpty() && !sSec.isEmpty()) {
-            int iDeg = Integer.parseInt(sDeg);
-            int iMin = Integer.parseInt(sMin);
-            double dSec = Double.parseDouble(sSec);
-
-            this.deg = dms2deg(iDeg, iMin, dSec);
-            this.min = iMin;
-            this.sec = dSec;
-            if(coordLabel.equals("S") || coordLabel.equals("W")){
-                this.deg = -this.deg;
-            }
+        if(coordLabel.equals("S") || coordLabel.equals("W")){
+            this.deg = -this.deg;
         }
-
-//        this.min = min;
-//        this.sec = sec;
     }
+
+
 
     double getD() {
         //  В виде градусов с десятыми
@@ -152,18 +125,9 @@ class Lat extends Coordinate {
         this.setBorders(-90, 90);
     }
 
-    Lat(String sDeg) {
-        super(sDeg);
-        this.setBorders(-90, 90);
-    }
 
-    Lat(int deg, int min, double sec) {
-        super(deg, min, sec);
-        this.setBorders(-90, 90);
-    }
-
-    Lat(String sDeg, String sMin, String sSec, String coordLabel) {
-        super(sDeg, sMin, sSec, coordLabel);
+    Lat(int deg, int min, double sec, String coordLabel) {
+        super(deg, min, sec, coordLabel);
         this.setBorders(-90, 90);
     }
 }
@@ -176,18 +140,8 @@ class Lon extends Coordinate {
         this.setBorders(-180, 180);
     }
 
-    Lon(String sDeg) {
-        super(sDeg);
-        this.setBorders(-180, 180);
-    }
-
-    Lon(int deg, int min, double sec) {
-        super(deg, min, sec);
-        this.setBorders(-180, 180);
-    }
-
-    Lon(String sDeg, String sMin, String sSec, String coordLabel) {
-        super(sDeg, sMin, sSec, coordLabel);
+    Lon(int deg, int min, double sec, String coordLabel) {
+        super(deg, min, sec, coordLabel);
         this.setBorders(-180, 180);
     }
 }
