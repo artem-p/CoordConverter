@@ -2,10 +2,34 @@ package ru.artempugachev.coordconverter;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.util.Objects;
 
 
 abstract class Coordinate {
+    private int minVal;
+    private int maxVal;
+
+    private double decimalPres;         // Целочисленное представление координаты.
+                                        // К нему приводятся все другие представления
+
+    Coordinate (double degDec) {
+        this.decimalPres = degDec;
+    }
+
+    Coordinate (int deg, int min, double sec, String label) {
+        //  Приводим к десятичному виду
+    }
+
+    Coordinate (int deg, double min, String label) {
+        //  Приводим к десятичному виду
+    }
+}
+
+
+
+
+
+
+abstract class Coordinate_old {
     private int minVal;
     private int maxVal;
 
@@ -13,13 +37,13 @@ abstract class Coordinate {
     private double min;
     private double sec;
 
-    Coordinate (double deg) {
+    Coordinate_old(double deg) {
         this.deg = deg;
         this.min = 0;
         this.sec = 0;
     }
 
-    Coordinate (int deg, int min, double sec, String coordLabel) {
+    Coordinate_old(int deg, int min, double sec, String coordLabel) {
         this.deg = dms2deg(deg, min, sec);
         this.min = min;
         this.sec = sec;
@@ -118,7 +142,7 @@ abstract class Coordinate {
 }
 
 
-class Lat extends Coordinate {
+class Lat extends Coordinate_old {
 
     Lat(double deg) {
         super(deg);
@@ -133,7 +157,7 @@ class Lat extends Coordinate {
 }
 
 
-class Lon extends Coordinate {
+class Lon extends Coordinate_old {
 
     Lon(double deg) {
         super(deg);
