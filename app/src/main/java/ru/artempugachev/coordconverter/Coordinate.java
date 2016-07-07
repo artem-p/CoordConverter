@@ -15,12 +15,45 @@ abstract class Coordinate {
         this.decimalPres = degDec;
     }
 
-    Coordinate (int deg, int min, double sec, String label) {
-        //  Приводим к десятичному виду
+    Coordinate (int deg, int min, double sec, String coordLabel) {
+        this.decimalPres = dms2deg(deg, min, sec);
+
+
+        if(coordLabel.equals("S") || coordLabel.equals("W")){
+            this.decimalPres = -this.decimalPres;
+        }
     }
 
-    Coordinate (int deg, double min, String label) {
-        //  Приводим к десятичному виду
+    Coordinate (int deg, double min, String coordLabel) {
+        this.decimalPres = dm2deg(deg, min);
+
+
+        if(coordLabel.equals("S") || coordLabel.equals("W")){
+            this.decimalPres = -this.decimalPres;
+        }
+    }
+
+    private double dm2deg(int deg, double min) {
+        BigDecimal absDeg = new BigDecimal(deg).abs();
+        BigDecimal bdMin = new BigDecimal(min).divide(new BigDecimal("60"), MathContext.DECIMAL64);
+        BigDecimal bdDeg = absDeg.add(bdMin);
+
+        double ddeg = bdDeg.doubleValue();
+        if(deg < 0) ddeg = -ddeg;               //ю.ш. и з.д. с минусом
+        return ddeg;
+    }
+
+    private double dms2deg(int deg, int min, double sec) {
+        //  dms to d
+        BigDecimal absDeg = new BigDecimal(deg).abs();
+        BigDecimal bdMin = new BigDecimal(min).divide(new BigDecimal("60"), MathContext.DECIMAL64);
+        BigDecimal bdSec = new BigDecimal(sec).divide(new BigDecimal("3600"), MathContext.DECIMAL64);
+
+        BigDecimal bdDeg = absDeg.add(bdMin).add(bdSec);
+
+        double ddeg = bdDeg.doubleValue();
+        if(deg < 0) ddeg = -ddeg;               //ю.ш. и з.д. с минусом
+        return ddeg;
     }
 }
 
