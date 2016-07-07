@@ -120,8 +120,10 @@ public class MainActivity extends ActionBarActivity {
             String lonSec = String.valueOf(mLonSec.getText());
             String lonLabel = (String) mLonSpinner.getSelectedItem();
 
-            Lat lat = new Lat(latDeg, latMin, latSec, latLabel);
-            Lon lon = new Lon(lonDeg, lonMin, lonSec, lonLabel);
+            Lat lat = new Lat(Integer.parseInt(latDeg),
+                    Integer.parseInt(latMin), Double.parseDouble(latSec), latLabel);
+            Lon lon = new Lon(Integer.parseInt(lonDeg), Integer.parseInt(lonMin),
+                    Double.parseDouble(lonSec), lonLabel);
 
             if(lat.isRightCoords()) {
                 if (lon.isRightCoords()) {
@@ -147,8 +149,8 @@ public class MainActivity extends ActionBarActivity {
             String sLat = String.valueOf(mDecLat.getText());
             String sLon = String.valueOf(mDecLon.getText());
 
-            Lat dLat = new Lat(sLat);
-            Lon dLon = new Lon(sLon);
+            Lat dLat = new Lat(Double.parseDouble(sLat));
+            Lon dLon = new Lon(Double.parseDouble(sLon));
 
             if(dLat.isRightCoords()) {
                 if(dLon.isRightCoords()) {
