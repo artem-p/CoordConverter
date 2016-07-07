@@ -16,7 +16,7 @@ abstract class Coordinate {
     }
 
     Coordinate (int deg, int min, double sec, String coordLabel) {
-        this.decimalPres = dms2deg(deg, min, sec);
+        this.decimalPres = dms2d(deg, min, sec);
 
 
         if(coordLabel.equals("S") || coordLabel.equals("W")){
@@ -25,7 +25,7 @@ abstract class Coordinate {
     }
 
     Coordinate (int deg, double min, String coordLabel) {
-        this.decimalPres = dm2deg(deg, min);
+        this.decimalPres = dm2d(deg, min);
 
 
         if(coordLabel.equals("S") || coordLabel.equals("W")){
@@ -33,7 +33,7 @@ abstract class Coordinate {
         }
     }
 
-    private double dm2deg(int deg, double min) {
+    private double dm2d(int deg, double min) {
         BigDecimal absDeg = new BigDecimal(deg).abs();
         BigDecimal bdMin = new BigDecimal(min).divide(new BigDecimal("60"), MathContext.DECIMAL64);
         BigDecimal bdDeg = absDeg.add(bdMin);
@@ -43,7 +43,7 @@ abstract class Coordinate {
         return ddeg;
     }
 
-    private double dms2deg(int deg, int min, double sec) {
+    private double dms2d(int deg, int min, double sec) {
         //  dms to d
         BigDecimal absDeg = new BigDecimal(deg).abs();
         BigDecimal bdMin = new BigDecimal(min).divide(new BigDecimal("60"), MathContext.DECIMAL64);
