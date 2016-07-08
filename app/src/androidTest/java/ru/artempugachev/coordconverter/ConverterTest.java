@@ -68,4 +68,22 @@ public class ConverterTest extends TestCase {
         assertEquals(minExpected, lon.getIntMin());
         assertEquals(secExpected, lon.getSec(), 1e-10);
     }
+
+    public void testConvertDDDtoDM() {
+        Lat lat = new Lat(30.5);
+        assertEquals(lat.getIntD(), 30);
+        assertEquals(lat.getDoubleMin(), 30.0, 1e-8);
+
+        Lon lon = new Lon(-45.7);
+        assertEquals(lon.getIntD(), -45);
+        assertEquals(lon.getDoubleMin(), 42.0, 1e-8);
+
+        lat = new Lat(-50.333);
+        assertEquals(lat.getIntD(), -50);
+        assertEquals(lat.getDoubleMin(), 19.98, 1e-8);
+
+        lon = new Lon(156.7567);
+        assertEquals(lon.getIntD(), 156);
+        assertEquals(lon.getDoubleMin(), 45.402, 1e-8);
+    }
 }

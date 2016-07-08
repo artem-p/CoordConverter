@@ -99,6 +99,11 @@ abstract class Coordinate {
         return sec.doubleValue();
     }
 
+    public double getDoubleMin() {
+        //  Минуты с плавающей точкой (для DM)
+        return  this.getDecimalPartInMinutes().doubleValue();
+    }
+
     private BigDecimal getDecimalPartInMinutes() {
         //  Дробную часть градуса выражаем в минутах
         String sDeg = String.valueOf(Math.abs(this.decimalPres));
@@ -156,6 +161,8 @@ abstract class Coordinate_old {
 
         return getDecimalPartInMinutes().intValue();
     }
+
+
 
     double getSec() {
         //  Секунды с плавающей точкой
