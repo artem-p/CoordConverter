@@ -106,6 +106,23 @@ public class MainActivity extends ActionBarActivity {
         populateCoordinateSpinner(lonLabels, mLonSpinner);
     }
 
+    private boolean checkDMSCoord(String sDeg, String sMin, String sSec, int minDeg, int maxDeg) {
+        boolean isRightCoords = false;
+
+        int deg = Integer.parseInt(sDeg);
+        // todo дописать
+
+
+        if(minDeg <= this.deg && this.deg <= this.maxDeg) {
+            if(0 <= this.min && this.min <= 59) {
+                if(0 <= this.sec && this.sec <= 59) {
+                    isRightCoords = true;
+                }
+            }
+        }
+    }
+
+
     private class dmsToDListener implements View.OnClickListener{
 
         @Override
@@ -120,24 +137,26 @@ public class MainActivity extends ActionBarActivity {
             String lonSec = String.valueOf(mLonSec.getText());
             String lonLabel = (String) mLonSpinner.getSelectedItem();
 
-            Lat lat = new Lat(Integer.parseInt(latDeg),
+            Coordinate lat = new Coordinate(Integer.parseInt(latDeg),
                     Integer.parseInt(latMin), Double.parseDouble(latSec), latLabel);
-            Lon lon = new Lon(Integer.parseInt(lonDeg), Integer.parseInt(lonMin),
+            Coordinate lon = new Coordinate(Integer.parseInt(lonDeg), Integer.parseInt(lonMin),
                     Double.parseDouble(lonSec), lonLabel);
 
-//            if(lat.isRightCoords()) {
-//                if (lon.isRightCoords()) {
-//                    //  Устанавливаем значения в ddd
-//                    String sLat = mDddformat.format(lat.getD());
-//                    String sLon = mDddformat.format(lon.getD());
-//                    mDecLat.setText(sLat);
-//                    mDecLon.setText(sLon);
-//                } else {
-//                    Toast.makeText(MainActivity.this, "Неверное значение долготы", Toast.LENGTH_SHORT).show();
-//                }
-//            } else {
-//                Toast.makeText(MainActivity.this, "Неверное значение широты", Toast.LENGTH_SHORT).show();
-//            }
+            if(checkDMSCoord(latDeg, latMin, latSec, -90, 90)) {
+                if (checkDMSCoord(lonDeg, lonMin, lonSec, -180, 180)) {
+                    //  Устанавливаем значения в ddd
+                    String sLat = mDddformat.format(lat.getDecimalPres());
+                    String sLon = mDddformat.format(lon.getDecimalPres());
+                    mDecLat.setText(sLat);
+                    mDecLon.setText(sLon);
+                } else {
+                    Toast.makeText(MainActivity.this, "Неверное значение долготы", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(MainActivity.this, "Неверное значение широты", Toast.LENGTH_SHORT).show();
+            }
+
+
         }
     }
 
@@ -149,8 +168,8 @@ public class MainActivity extends ActionBarActivity {
             String sLat = String.valueOf(mDecLat.getText());
             String sLon = String.valueOf(mDecLon.getText());
 
-            Lat dLat = new Lat(Double.parseDouble(sLat));
-            Lon dLon = new Lon(Double.parseDouble(sLon));
+            Coordinate dLat = new Coordinate(Double.parseDouble(sLat));
+            Coordinate dLon = new Coordinate(Double.parseDouble(sLon));
 
 //            if(dLat.isRightCoords()) {
 //                if(dLon.isRightCoords()) {

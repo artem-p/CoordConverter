@@ -4,9 +4,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 
-abstract class Coordinate {
-    private int minVal;
-    private int maxVal;
+public class Coordinate {
 
     public double getDecimalPres() {
         return decimalPres;
@@ -39,12 +37,6 @@ abstract class Coordinate {
         if(coordLabel.equals("S") || coordLabel.equals("W")){
             this.decimalPres = -this.decimalPres;
         }
-    }
-
-    void setBorders(int min, int max) {
-        //  Устанавливаем границы координат
-        this.minVal = min;
-        this.maxVal = max;
     }
 
     private double dm2d(int deg, double min) {
@@ -226,42 +218,4 @@ abstract class Coordinate_old {
 //        if(dcoords.getDeg() < 0) degIntPart = - degIntPart;
 //        return new DMSCoords(degIntPart, minIntPart, sec.doubleValue());
 //    }
-}
-
-
-class Lat extends Coordinate {
-
-    Lat(double deg) {
-        super(deg);
-        this.setBorders(-90, 90);
-    }
-
-    Lat(int deg, double min, String coordLabel) {
-        super(deg, min, coordLabel);
-        this.setBorders(-90, 90);
-    }
-
-    Lat(int deg, int min, double sec, String coordLabel) {
-        super(deg, min, sec, coordLabel);
-        this.setBorders(-90, 90);
-    }
-}
-
-
-class Lon extends Coordinate {
-
-    Lon(double deg) {
-        super(deg);
-        this.setBorders(-180, 180);
-    }
-
-    Lon(int deg, double min, String coordLabel) {
-        super(deg, min, coordLabel);
-        this.setBorders(-180, 180);
-    }
-
-    Lon(int deg, int min, double sec, String coordLabel) {
-        super(deg, min, sec, coordLabel);
-        this.setBorders(-180, 180);
-    }
 }
