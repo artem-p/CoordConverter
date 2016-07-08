@@ -9,22 +9,43 @@ public class ConverterTest extends TestCase {
 
 
     public void testConvertDMStoDDD(){
-        checkDMStoDDD(0, 0, 0, 0.0);
-        checkDMStoDDD(30, 30, 0, 30.5);
-        checkDMStoDDD(30, 30, 30, 30.508333333333333);
-        checkDMStoDDD(-30, 30, 30, -30.508333333333333);
-        checkDMStoDDD(-18, 38, 46.48, -18.646244444444445);
-        checkDMStoDDD(82, 58, 7.50, 82.96875);
-        checkDMStoDDD(67, 36, 14.36, 67.60398889);
-        checkDMStoDDD(63, 23, 29.48, 63.39152222);
+        Lat lat = new Lat(0, 0, 0, "N");
+        assertEquals(lat.getDecimalPres(), 0.0, 1e-8);
+
+        Lon lon = new Lon(30, 30, 0, "E");
+        assertEquals(lon.getDecimalPres(), 30.5, 1e-8);
+
+        lat = new Lat(30, 30, 30, "N");
+        assertEquals(lat.getDecimalPres(), 30.508333333333333, 1e-8);
+
+        lat = new Lat(30, 30, 30, "S");
+        assertEquals(lat.getDecimalPres(), -30.508333333333333, 1e-8);
+
+        lon = new Lon(18, 38, 46.48, "W");
+        assertEquals(lon.getDecimalPres(), -18.646244444444445, 1e-8);
+
+        lat = new Lat(82, 58, 7.50, "N");
+        assertEquals(lat.getDecimalPres(), 82.96875, 1e-8);
+
+        lon = new Lon(67, 36, 14.36, "E");
+        assertEquals(lon.getDecimalPres(), 67.60398889, 1e-8);
+
+        lat = new Lat(63, 23, 29.48, "N");
+        assertEquals(lat.getDecimalPres(), 63.39152222, 1e-8);
     }
-//
-    private void checkDMStoDDD(int deg, int min, double sec, double degExpected) {
-//        Lat lat = new Lat(deg, min, sec);
-//        assertEquals(degExpected, lat.getD(), 1e-8);
-//
-//        Lon lon = new Lon(deg, min, sec);
-//        assertEquals(degExpected, lon.getD(), 1e-8);
+
+    public void testConvertDMtoDDD() {
+        Lat lat = new Lat(0, 0, "N");
+        assertEquals(lat.getDecimalPres(), 0.0, 1e-8);
+
+        Lon lon = new Lon(30, 30.0, "E");
+        assertEquals(lon.getDecimalPres(), 30.5, 1e-8);
+
+        lat = new Lat(30, 30.5, "N");
+        assertEquals(lat.getDecimalPres(), 30.508333333333333, 1e-8);
+
+        lat = new Lat(30, 30.5, "S");
+        assertEquals(lat.getDecimalPres(), -30.508333333333333, 1e-8);
     }
 
     public void testConvertDDDtoDMS() {
@@ -38,16 +59,16 @@ public class ConverterTest extends TestCase {
     }
 
     private void checkDDDtoDMS(double deg, int degExpected, int minExpected, double secExpected) {
-        Lat lat = new Lat(deg);
-
-        assertEquals(degExpected, lat.getIntD());
-        assertEquals(minExpected, lat.getIntMin());
-        assertEquals(secExpected, lat.getSec(), 1e-10);
-
-        Lon lon = new Lon(deg);
-
-        assertEquals(degExpected, lon.getIntD());
-        assertEquals(minExpected, lon.getIntMin());
-        assertEquals(secExpected, lon.getSec(), 1e-10);
+//        Lat lat = new Lat(deg);
+//
+//        assertEquals(degExpected, lat.getIntD());
+//        assertEquals(minExpected, lat.getIntMin());
+//        assertEquals(secExpected, lat.getSec(), 1e-10);
+//
+//        Lon lon = new Lon(deg);
+//
+//        assertEquals(degExpected, lon.getIntD());
+//        assertEquals(minExpected, lon.getIntMin());
+//        assertEquals(secExpected, lon.getSec(), 1e-10);
     }
 }

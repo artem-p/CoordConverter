@@ -125,19 +125,19 @@ public class MainActivity extends ActionBarActivity {
             Lon lon = new Lon(Integer.parseInt(lonDeg), Integer.parseInt(lonMin),
                     Double.parseDouble(lonSec), lonLabel);
 
-            if(lat.isRightCoords()) {
-                if (lon.isRightCoords()) {
-                    //  Устанавливаем значения в ddd
-                    String sLat = mDddformat.format(lat.getD());
-                    String sLon = mDddformat.format(lon.getD());
-                    mDecLat.setText(sLat);
-                    mDecLon.setText(sLon);
-                } else {
-                    Toast.makeText(MainActivity.this, "Неверное значение долготы", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                Toast.makeText(MainActivity.this, "Неверное значение широты", Toast.LENGTH_SHORT).show();
-            }
+//            if(lat.isRightCoords()) {
+//                if (lon.isRightCoords()) {
+//                    //  Устанавливаем значения в ddd
+//                    String sLat = mDddformat.format(lat.getD());
+//                    String sLon = mDddformat.format(lon.getD());
+//                    mDecLat.setText(sLat);
+//                    mDecLon.setText(sLon);
+//                } else {
+//                    Toast.makeText(MainActivity.this, "Неверное значение долготы", Toast.LENGTH_SHORT).show();
+//                }
+//            } else {
+//                Toast.makeText(MainActivity.this, "Неверное значение широты", Toast.LENGTH_SHORT).show();
+//            }
         }
     }
 
@@ -152,39 +152,39 @@ public class MainActivity extends ActionBarActivity {
             Lat dLat = new Lat(Double.parseDouble(sLat));
             Lon dLon = new Lon(Double.parseDouble(sLon));
 
-            if(dLat.isRightCoords()) {
-                if(dLon.isRightCoords()) {
-                    //  Устанавливаем значения в поля dms
-                    mLatDeg.setText(String.valueOf(Math.abs(dLat.getIntD())));
-                    mLatMin.setText(String.valueOf(dLat.getIntMin()));
-
-                    String sLatSec = mDmsSecFormat.format(dLat.getSec());
-                    mLatSec.setText(sLatSec);
-
-                    mLonDeg.setText(String.valueOf(Math.abs(dLon.getIntD())));
-                    mLonMin.setText(String.valueOf(dLon.getIntMin()));
-
-                    String sLonSec = mDmsSecFormat.format(dLon.getSec());
-                    mLonSec.setText(String.valueOf(sLonSec));
-
-                    //  Устанавливаем спиннер с полушариями
-                    if(dLat.getIntD() >= 0) {
-                        mLatSpinner.setSelection(0);            //  N
-                    } else {
-                        mLatSpinner.setSelection(1);            //  S
-                    }
-
-                    if(dLon.getIntD() >= 0) {
-                        mLonSpinner.setSelection(0);            //  E
-                    } else {
-                        mLonSpinner.setSelection(1);            //  W
-                    }
-                } else {
-                    Toast.makeText(MainActivity.this, "Неверное значение долготы", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                Toast.makeText(MainActivity.this, "Неверное значение широты", Toast.LENGTH_SHORT).show();
-            }
+//            if(dLat.isRightCoords()) {
+//                if(dLon.isRightCoords()) {
+//                    //  Устанавливаем значения в поля dms
+//                    mLatDeg.setText(String.valueOf(Math.abs(dLat.getIntD())));
+//                    mLatMin.setText(String.valueOf(dLat.getIntMin()));
+//
+//                    String sLatSec = mDmsSecFormat.format(dLat.getSec());
+//                    mLatSec.setText(sLatSec);
+//
+//                    mLonDeg.setText(String.valueOf(Math.abs(dLon.getIntD())));
+//                    mLonMin.setText(String.valueOf(dLon.getIntMin()));
+//
+//                    String sLonSec = mDmsSecFormat.format(dLon.getSec());
+//                    mLonSec.setText(String.valueOf(sLonSec));
+//
+//                    //  Устанавливаем спиннер с полушариями
+//                    if(dLat.getIntD() >= 0) {
+//                        mLatSpinner.setSelection(0);            //  N
+//                    } else {
+//                        mLatSpinner.setSelection(1);            //  S
+//                    }
+//
+//                    if(dLon.getIntD() >= 0) {
+//                        mLonSpinner.setSelection(0);            //  E
+//                    } else {
+//                        mLonSpinner.setSelection(1);            //  W
+//                    }
+//                } else {
+//                    Toast.makeText(MainActivity.this, "Неверное значение долготы", Toast.LENGTH_SHORT).show();
+//                }
+//            } else {
+//                Toast.makeText(MainActivity.this, "Неверное значение широты", Toast.LENGTH_SHORT).show();
+//            }
         }
 
     }

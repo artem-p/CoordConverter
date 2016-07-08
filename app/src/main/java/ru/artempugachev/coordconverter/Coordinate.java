@@ -8,6 +8,14 @@ abstract class Coordinate {
     private int minVal;
     private int maxVal;
 
+    public double getDecimalPres() {
+        return decimalPres;
+    }
+
+    public void setDecimalPres(double decimalPres) {
+        this.decimalPres = decimalPres;
+    }
+
     private double decimalPres;         // Целочисленное представление координаты.
                                         // К нему приводятся все другие представления
 
@@ -31,6 +39,12 @@ abstract class Coordinate {
         if(coordLabel.equals("S") || coordLabel.equals("W")){
             this.decimalPres = -this.decimalPres;
         }
+    }
+
+    void setBorders(int min, int max) {
+        //  Устанавливаем границы координат
+        this.minVal = min;
+        this.maxVal = max;
     }
 
     private double dm2d(int deg, double min) {
@@ -175,13 +189,17 @@ abstract class Coordinate_old {
 }
 
 
-class Lat extends Coordinate_old {
+class Lat extends Coordinate {
 
     Lat(double deg) {
         super(deg);
         this.setBorders(-90, 90);
     }
 
+    Lat(int deg, double min, String coordLabel) {
+        super(deg, min, coordLabel);
+        this.setBorders(-90, 90);
+    }
 
     Lat(int deg, int min, double sec, String coordLabel) {
         super(deg, min, sec, coordLabel);
@@ -190,10 +208,15 @@ class Lat extends Coordinate_old {
 }
 
 
-class Lon extends Coordinate_old {
+class Lon extends Coordinate {
 
     Lon(double deg) {
         super(deg);
+        this.setBorders(-180, 180);
+    }
+
+    Lon(int deg, double min, String coordLabel) {
+        super(deg, min, coordLabel);
         this.setBorders(-180, 180);
     }
 
