@@ -69,12 +69,45 @@ abstract class Coordinate {
         if(deg < 0) ddeg = -ddeg;               //ю.ш. и з.д. с минусом
         return ddeg;
     }
+
+    public double asDDD() {
+        return this.decimalPres;
+    }
+
+    private int getIntAbsD() {
+        //  Целочисленное значение градусов по модулю
+        return new BigDecimal((int)Math.abs(this.decimalPres)).intValue();
+    }
+
+    int getIntD() {
+        int deg = this.getIntAbsD();
+        if(this.decimalPres <0) deg = -deg;
+        return deg;
+    }
+
+    int getIntMin() {
+        //  Целые минуты
+
+        return getDecimalPartInMinutes().intValue();
+    }
+
+    double getSec() {
+        //  Секунды с плавающей точкой
+
+        BigDecimal min = getDecimalPartInMinutes();
+        BigDecimal sec = min.subtract(new BigDecimal(min.intValue())).multiply(new BigDecimal("60"));
+        return sec.doubleValue();
+    }
+
+    private BigDecimal getDecimalPartInMinutes() {
+        //  Дробную часть градуса выражаем в минутах
+        String sDeg = String.valueOf(Math.abs(this.decimalPres));
+        BigDecimal absDeg = new BigDecimal(sDeg).abs();
+        BigDecimal degDecimal = absDeg.subtract(new BigDecimal(this.getIntAbsD()));
+        BigDecimal min = (degDecimal.multiply(new BigDecimal("60")));
+        return min;
+    }
 }
-
-
-
-
-
 
 abstract class Coordinate_old {
     private int minVal;

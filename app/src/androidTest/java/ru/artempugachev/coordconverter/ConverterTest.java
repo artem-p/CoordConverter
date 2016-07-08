@@ -1,10 +1,7 @@
 package ru.artempugachev.coordconverter;
-//
+
 import junit.framework.TestCase;
-//
-///**
-// * Created by artem on 31.01.16.
-// */
+
 public class ConverterTest extends TestCase {
 
 
@@ -59,16 +56,16 @@ public class ConverterTest extends TestCase {
     }
 
     private void checkDDDtoDMS(double deg, int degExpected, int minExpected, double secExpected) {
-//        Lat lat = new Lat(deg);
-//
-//        assertEquals(degExpected, lat.getIntD());
-//        assertEquals(minExpected, lat.getIntMin());
-//        assertEquals(secExpected, lat.getSec(), 1e-10);
-//
-//        Lon lon = new Lon(deg);
-//
-//        assertEquals(degExpected, lon.getIntD());
-//        assertEquals(minExpected, lon.getIntMin());
-//        assertEquals(secExpected, lon.getSec(), 1e-10);
+        Lat lat = new Lat(deg);
+
+        assertEquals(degExpected, lat.getIntD());
+        assertEquals(minExpected, lat.getIntMin());
+        assertEquals(secExpected, lat.getSec(), 1e-10);
+
+        Lon lon = new Lon(deg);
+
+        assertEquals(degExpected, lon.getIntD());
+        assertEquals(minExpected, lon.getIntMin());
+        assertEquals(secExpected, lon.getSec(), 1e-10);
     }
 }
