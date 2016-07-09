@@ -110,16 +110,30 @@ public class MainActivity extends ActionBarActivity {
         boolean isRightCoords = false;
 
         int deg = Integer.parseInt(sDeg);
-        // todo дописать
+        int min = Integer.parseInt(sMin);
+        double sec = Double.parseDouble(sSec);
 
-
-        if(minDeg <= this.deg && this.deg <= this.maxDeg) {
-            if(0 <= this.min && this.min <= 59) {
-                if(0 <= this.sec && this.sec <= 59) {
+        if(minDeg <= deg && deg <= maxDeg) {
+            if(0 <= min && min <= 59) {
+                if(0 <= sec && sec <= 59) {
                     isRightCoords = true;
                 }
             }
         }
+
+        return isRightCoords;
+    }
+
+    private boolean checkDCoord(String sDeg, int minDeg, int maxDeg) {
+        boolean isRightCoords = false;
+
+        double deg = Double.parseDouble(sDeg);
+
+        if(minDeg <= deg && deg <= maxDeg) {
+                    isRightCoords = true;
+        }
+
+        return isRightCoords;
     }
 
 
@@ -128,6 +142,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public void onClick(View v) {
             setMissingVals();
+
             String latDeg = String.valueOf(mLatDeg.getText());
             String latMin = String.valueOf(mLatMin.getText());
             String latSec = String.valueOf(mLatSec.getText());
@@ -137,13 +152,15 @@ public class MainActivity extends ActionBarActivity {
             String lonSec = String.valueOf(mLonSec.getText());
             String lonLabel = (String) mLonSpinner.getSelectedItem();
 
-            Coordinate lat = new Coordinate(Integer.parseInt(latDeg),
-                    Integer.parseInt(latMin), Double.parseDouble(latSec), latLabel);
-            Coordinate lon = new Coordinate(Integer.parseInt(lonDeg), Integer.parseInt(lonMin),
-                    Double.parseDouble(lonSec), lonLabel);
+
 
             if(checkDMSCoord(latDeg, latMin, latSec, -90, 90)) {
                 if (checkDMSCoord(lonDeg, lonMin, lonSec, -180, 180)) {
+                    Coordinate lat = new Coordinate(Integer.parseInt(latDeg),
+                            Integer.parseInt(latMin), Double.parseDouble(latSec), latLabel);
+                    Coordinate lon = new Coordinate(Integer.parseInt(lonDeg), Integer.parseInt(lonMin),
+                            Double.parseDouble(lonSec), lonLabel);
+
                     //  Устанавливаем значения в ddd
                     String sLat = mDddformat.format(lat.getDecimalPres());
                     String sLon = mDddformat.format(lon.getDecimalPres());
@@ -165,45 +182,45 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public void onClick(View v) {
             setMissingVals();
+
             String sLat = String.valueOf(mDecLat.getText());
             String sLon = String.valueOf(mDecLon.getText());
 
-            Coordinate dLat = new Coordinate(Double.parseDouble(sLat));
-            Coordinate dLon = new Coordinate(Double.parseDouble(sLon));
+            if(checkDCoord(sLat, -90, 90)) {
+                if(checkDCoord(sLon, -180, 180)) {
+                    Coordinate dLat = new Coordinate(Double.parseDouble(sLat));
+                    Coordinate dLon = new Coordinate(Double.parseDouble(sLon));
+                    //  Устанавливаем значения в поля dms
+                    mLatDeg.setText(String.valueOf(Math.abs(dLat.getIntD())));
+                    mLatMin.setText(String.valueOf(dLat.getIntMin()));
 
-//            if(dLat.isRightCoords()) {
-//                if(dLon.isRightCoords()) {
-//                    //  Устанавливаем значения в поля dms
-//                    mLatDeg.setText(String.valueOf(Math.abs(dLat.getIntD())));
-//                    mLatMin.setText(String.valueOf(dLat.getIntMin()));
-//
-//                    String sLatSec = mDmsSecFormat.format(dLat.getSec());
-//                    mLatSec.setText(sLatSec);
-//
-//                    mLonDeg.setText(String.valueOf(Math.abs(dLon.getIntD())));
-//                    mLonMin.setText(String.valueOf(dLon.getIntMin()));
-//
-//                    String sLonSec = mDmsSecFormat.format(dLon.getSec());
-//                    mLonSec.setText(String.valueOf(sLonSec));
-//
-//                    //  Устанавливаем спиннер с полушариями
-//                    if(dLat.getIntD() >= 0) {
-//                        mLatSpinner.setSelection(0);            //  N
-//                    } else {
-//                        mLatSpinner.setSelection(1);            //  S
-//                    }
-//
-//                    if(dLon.getIntD() >= 0) {
-//                        mLonSpinner.setSelection(0);            //  E
-//                    } else {
-//                        mLonSpinner.setSelection(1);            //  W
-//                    }
-//                } else {
-//                    Toast.makeText(MainActivity.this, "Неверное значение долготы", Toast.LENGTH_SHORT).show();
-//                }
-//            } else {
-//                Toast.makeText(MainActivity.this, "Неверное значение широты", Toast.LENGTH_SHORT).show();
-//            }
+                    String sLatSec = mDmsSecFormat.format(dLat.getSec());
+                    mLatSec.setText(sLatSec);
+
+                    mLonDeg.setText(String.valueOf(Math.abs(dLon.getIntD())));
+                    mLonMin.setText(String.valueOf(dLon.getIntMin()));
+
+                    String sLonSec = mDmsSecFormat.format(dLon.getSec());
+                    mLonSec.setText(String.valueOf(sLonSec));
+
+                    //  Устанавливаем спиннер с полушариями
+                    if(dLat.getIntD() >= 0) {
+                        mLatSpinner.setSelection(0);            //  N
+                    } else {
+                        mLatSpinner.setSelection(1);            //  S
+                    }
+
+                    if(dLon.getIntD() >= 0) {
+                        mLonSpinner.setSelection(0);            //  E
+                    } else {
+                        mLonSpinner.setSelection(1);            //  W
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, "Неверное значение долготы", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(MainActivity.this, "Неверное значение широты", Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
