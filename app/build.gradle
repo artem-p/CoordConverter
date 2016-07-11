@@ -5,10 +5,10 @@ android {
     buildToolsVersion '23.0.2'
 
     defaultConfig {
-        applicationId "ru.artempugachev.coordconverter"
+        applicationId "ru.artempugachev.concoord"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 1
+        versionCode 1000
         versionName "1.0"
     }
     buildTypes {

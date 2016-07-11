@@ -1,8 +1,7 @@
-package ru.artempugachev.coordconverter;
+package ru.artempugachev.concoord;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.util.Objects;
 
 
 public abstract class Coordinate {

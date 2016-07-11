@@ -1,4 +1,4 @@
-package ru.artempugachev.coordconverter;
+package ru.artempugachev.concoord;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -18,7 +18,6 @@ import java.util.Locale;
 
 
 public class MainActivity extends ActionBarActivity {
-    // todo десятичный вывод ограничить до 7 знаков
     //  todo вкладки dms-ddd, dms-dm, dm-ddd
     private Toolbar mToolbar;
     private Spinner mLatSpinner;

@@ -1,4 +1,4 @@
-package ru.artempugachev.coordconverter;
+package ru.artempugachev.concoord;
 //
 import junit.framework.TestCase;
 //
