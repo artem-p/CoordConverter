@@ -105,11 +105,43 @@ public class MainActivity extends ActionBarActivity {
         populateCoordinateSpinner(lonLabels, mLonSpinner);
     }
 
+    private boolean checkDMSCoord(String sDeg, String sMin, String sSec, int minDeg, int maxDeg) {
+        boolean isRightCoords = false;
+
+        int deg = Integer.parseInt(sDeg);
+        int min = Integer.parseInt(sMin);
+        double sec = Double.parseDouble(sSec);
+
+        if(minDeg <= deg && deg <= maxDeg) {
+            if(0 <= min && min <= 59) {
+                if(0 <= sec && sec <= 59) {
+                    isRightCoords = true;
+                }
+            }
+        }
+
+        return isRightCoords;
+    }
+
+    private boolean checkDCoord(String sDeg, int minDeg, int maxDeg) {
+        boolean isRightCoords = false;
+
+        double deg = Double.parseDouble(sDeg);
+
+        if(minDeg <= deg && deg <= maxDeg) {
+                    isRightCoords = true;
+        }
+
+        return isRightCoords;
+    }
+
+
     private class dmsToDListener implements View.OnClickListener{
 
         @Override
         public void onClick(View v) {
             setMissingVals();
+
             String latDeg = String.valueOf(mLatDeg.getText());
             String latMin = String.valueOf(mLatMin.getText());
             String latSec = String.valueOf(mLatSec.getText());
@@ -119,14 +151,18 @@ public class MainActivity extends ActionBarActivity {
             String lonSec = String.valueOf(mLonSec.getText());
             String lonLabel = (String) mLonSpinner.getSelectedItem();
 
-            Lat lat = new Lat(latDeg, latMin, latSec, latLabel);
-            Lon lon = new Lon(lonDeg, lonMin, lonSec, lonLabel);
 
-            if(lat.isRightCoords()) {
-                if (lon.isRightCoords()) {
+
+            if(checkDMSCoord(latDeg, latMin, latSec, -90, 90)) {
+                if (checkDMSCoord(lonDeg, lonMin, lonSec, -180, 180)) {
+                    Coordinate lat = new Coordinate(Integer.parseInt(latDeg),
+                            Integer.parseInt(latMin), Double.parseDouble(latSec), latLabel);
+                    Coordinate lon = new Coordinate(Integer.parseInt(lonDeg), Integer.parseInt(lonMin),
+                            Double.parseDouble(lonSec), lonLabel);
+
                     //  Устанавливаем значения в ddd
-                    String sLat = mDddformat.format(lat.getD());
-                    String sLon = mDddformat.format(lon.getD());
+                    String sLat = mDddformat.format(lat.getDecimalPres());
+                    String sLon = mDddformat.format(lon.getDecimalPres());
                     mDecLat.setText(sLat);
                     mDecLon.setText(sLon);
                 } else {
@@ -135,6 +171,8 @@ public class MainActivity extends ActionBarActivity {
             } else {
                 Toast.makeText(MainActivity.this, "Неверное значение широты", Toast.LENGTH_SHORT).show();
             }
+
+
         }
     }
 
@@ -143,14 +181,14 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public void onClick(View v) {
             setMissingVals();
+
             String sLat = String.valueOf(mDecLat.getText());
             String sLon = String.valueOf(mDecLon.getText());
 
-            Lat dLat = new Lat(sLat);
-            Lon dLon = new Lon(sLon);
-
-            if(dLat.isRightCoords()) {
-                if(dLon.isRightCoords()) {
+            if(checkDCoord(sLat, -90, 90)) {
+                if(checkDCoord(sLon, -180, 180)) {
+                    Coordinate dLat = new Coordinate(Double.parseDouble(sLat));
+                    Coordinate dLon = new Coordinate(Double.parseDouble(sLon));
                     //  Устанавливаем значения в поля dms
                     mLatDeg.setText(String.valueOf(Math.abs(dLat.getIntD())));
                     mLatMin.setText(String.valueOf(dLat.getIntMin()));
