@@ -63,7 +63,7 @@ public class DmsToDddFragment extends Fragment {
         return v;
     }
 
-    private void clearFields() {
+    public void clearFields() {
         //  Сбрасываем все поля
         mLatDeg.setText("");
         mLatMin.setText("");
