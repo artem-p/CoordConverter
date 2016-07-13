@@ -4,6 +4,7 @@ package ru.artempugachev.concoord;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -62,6 +63,20 @@ public class DmsToDddFragment extends Fragment {
 
         return v;
     }
+
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//
+//        switch (id) {
+//            case R.id.action_refresh:
+//                clearFields();
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//
+//    }
 
     public void clearFields() {
         //  Сбрасываем все поля
