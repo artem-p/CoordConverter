@@ -78,7 +78,7 @@ public class DmsToDddFragment extends Fragment {
 //
 //    }
 
-    public void clearFields() {
+    void clearFields() {
         //  Сбрасываем все поля
         mLatDeg.setText("");
         mLatMin.setText("");
@@ -88,36 +88,6 @@ public class DmsToDddFragment extends Fragment {
         mLonSec.setText("");
         mDecLat.setText("");
         mDecLon.setText("");
-    }
-
-    private boolean checkDMSCoord(String sDeg, String sMin, String sSec, int minDeg, int maxDeg) {
-        boolean isRightCoords = false;
-
-        int deg = Integer.parseInt(sDeg);
-        int min = Integer.parseInt(sMin);
-        double sec = Double.parseDouble(sSec);
-
-        if(minDeg <= deg && deg <= maxDeg) {
-            if(0 <= min && min <= 59) {
-                if(0 <= sec && sec <= 59) {
-                    isRightCoords = true;
-                }
-            }
-        }
-
-        return isRightCoords;
-    }
-
-    private boolean checkDCoord(String sDeg, int minDeg, int maxDeg) {
-        boolean isRightCoords = false;
-
-        double deg = Double.parseDouble(sDeg);
-
-        if(minDeg <= deg && deg <= maxDeg) {
-            isRightCoords = true;
-        }
-
-        return isRightCoords;
     }
 
 
@@ -138,8 +108,8 @@ public class DmsToDddFragment extends Fragment {
 
 
 
-            if(checkDMSCoord(latDeg, latMin, latSec, -90, 90)) {
-                if (checkDMSCoord(lonDeg, lonMin, lonSec, -180, 180)) {
+            if(MainActivity.checkDMSCoord(latDeg, latMin, latSec, -90, 90)) {
+                if (MainActivity.checkDMSCoord(lonDeg, lonMin, lonSec, -180, 180)) {
                     Coordinate lat = new Coordinate(Integer.parseInt(latDeg),
                             Integer.parseInt(latMin), Double.parseDouble(latSec), latLabel);
                     Coordinate lon = new Coordinate(Integer.parseInt(lonDeg), Integer.parseInt(lonMin),
@@ -170,8 +140,8 @@ public class DmsToDddFragment extends Fragment {
             String sLat = String.valueOf(mDecLat.getText());
             String sLon = String.valueOf(mDecLon.getText());
 
-            if(checkDCoord(sLat, -90, 90)) {
-                if(checkDCoord(sLon, -180, 180)) {
+            if(MainActivity.checkDCoord(sLat, -90, 90)) {
+                if(MainActivity.checkDCoord(sLon, -180, 180)) {
                     Coordinate dLat = new Coordinate(Double.parseDouble(sLat));
                     Coordinate dLon = new Coordinate(Double.parseDouble(sLon));
                     //  Устанавливаем значения в поля dms
@@ -211,19 +181,14 @@ public class DmsToDddFragment extends Fragment {
 
     private void setMissingVals() {
         //  Устанавливаем отсутствующие значения в 0
-        setToNullIfMissing(mLatDeg);
-        setToNullIfMissing(mLatMin);
-        setToNullIfMissing(mLatSec);
-        setToNullIfMissing(mLonDeg);
-        setToNullIfMissing(mLonMin);
-        setToNullIfMissing(mLonSec);
-        setToNullIfMissing(mDecLat);
-        setToNullIfMissing(mDecLon);
-    }
-
-    private void setToNullIfMissing(TextView textView) {
-        String sVal = String.valueOf(textView.getText());
-        if(sVal.equals("")) textView.setText("0");
+        MainActivity.setToNullIfMissing(mLatDeg);
+        MainActivity.setToNullIfMissing(mLatMin);
+        MainActivity.setToNullIfMissing(mLatSec);
+        MainActivity.setToNullIfMissing(mLonDeg);
+        MainActivity.setToNullIfMissing(mLonMin);
+        MainActivity.setToNullIfMissing(mLonSec);
+        MainActivity.setToNullIfMissing(mDecLat);
+        MainActivity.setToNullIfMissing(mDecLon);
     }
 
 

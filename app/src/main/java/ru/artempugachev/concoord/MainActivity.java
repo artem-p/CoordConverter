@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -63,8 +64,21 @@ public class MainActivity extends AppCompatActivity {
         switch (id) {
             case R.id.action_refresh:
                 FragmentPagerAdapter fa = (FragmentPagerAdapter) viewPager.getAdapter();
-                DmsToDddFragment fragment = (DmsToDddFragment) fa.getItem(viewPager.getCurrentItem());
-                fragment.clearFields();
+                if(viewPager.getCurrentItem() == DMS_TO_DDD_TAB_POS) {
+                    DmsToDddFragment fragment = (DmsToDddFragment) fa.getItem(viewPager.getCurrentItem());
+                    fragment.clearFields();
+                }
+
+                if(viewPager.getCurrentItem() == DM_TO_DDD_TAB_POS) {
+                    DmToDddFragment fragment = (DmToDddFragment) fa.getItem(viewPager.getCurrentItem());
+                    fragment.clearFields();
+                }
+
+//                if(viewPager.getCurrentItem() == DMS_TO_DM_TAB_POS) {
+//                    DmsToDmFragment fragment = (DmsToDmFragment) fa.getItem(viewPager.getCurrentItem());
+//                    fragment.clearFields();
+//                }
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -85,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new DmsToDmFragment(), "dms<->dm");
         viewPager.setAdapter(adapter);
     }
+
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -115,4 +130,53 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public static void setToNullIfMissing(TextView textView) {
+        String sVal = String.valueOf(textView.getText());
+        if(sVal.equals("")) textView.setText("0");
+    }
+
+    public static boolean checkDCoord(String sDeg, int minDeg, int maxDeg) {
+        boolean isRightCoords = false;
+
+        double deg = Double.parseDouble(sDeg);
+
+        if(minDeg <= deg && deg <= maxDeg) {
+            isRightCoords = true;
+        }
+
+        return isRightCoords;
+    }
+
+    public static boolean checkDMSCoord(String sDeg, String sMin, String sSec, int minDeg, int maxDeg) {
+        boolean isRightCoords = false;
+
+        int deg = Integer.parseInt(sDeg);
+        int min = Integer.parseInt(sMin);
+        double sec = Double.parseDouble(sSec);
+
+        if(minDeg <= deg && deg <= maxDeg) {
+            if(0 <= min && min <= 59) {
+                if(0 <= sec && sec <= 59) {
+                    isRightCoords = true;
+                }
+            }
+        }
+
+        return isRightCoords;
+    }
+
+    public static boolean checkDMCoord(String sDeg, String sMin, int minDeg, int maxDeg) {
+        boolean isRightCoords = false;
+
+        int deg = Integer.parseInt(sDeg);
+        int min = Integer.parseInt(sMin);
+
+        if(minDeg <= deg && deg <= maxDeg) {
+            if(0 <= min && min <= 59) {
+                isRightCoords = true;
+            }
+        }
+
+        return isRightCoords;
+    }
 }

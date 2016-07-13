@@ -1,9 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
-    <TextView
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="dm to ddd"
-        />
+        android:paddingTop="5dp"
+        android:id="@+id/dmsLayout"
+        android:layout_centerHorizontal="true">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/latDegLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+            <EditText
+                android:layout_width="@dimen/dms_width"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/latDeg"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:hint="°"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/latMinLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/latDegLayout"
+            android:layout_toRightOf="@+id/latDegLayout">
+            <EditText
+                android:layout_width="@dimen/dms_width"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/latMin"
+
+                android:hint="'"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/latSpinner"
+            android:layout_toEndOf="@+id/latMinLayout"
+            android:layout_toRightOf="@+id/latMinLayout"
+            android:layout_alignBottom="@+id/latMinLayout"
+            />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/lonDegLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/latDegLayout"
+            android:layout_alignParentLeft="true"
+            >
+            <EditText
+                android:layout_width="@dimen/dms_width"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/lonDeg"
+                android:hint='°'
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/lonMinLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/latDegLayout"
+            android:layout_toRightOf="@+id/lonDegLayout"
+            android:layout_toEndOf="@+id/lonDegLayout"
+            >
+            <EditText
+                android:layout_width="@dimen/dms_width"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/lonMin"
+                android:hint="'"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lonSpinner"
+            android:layout_below="@+id/latSpinner"
+            android:layout_toEndOf="@+id/lonMinLayout"
+            android:layout_toRightOf="@+id/lonMinLayout"
+            android:layout_alignBottom="@+id/lonMinLayout"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/btnLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/dmsLayout"
+        android:layout_centerHorizontal="true">
+
+        <ImageButton
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_expand"
+            android:id="@+id/btnDmToDeg"/>
+
+        <ImageButton
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnDegToDm"
+            android:src="@drawable/ic_action_collapse"
+            />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/decimalLayout"
+        android:layout_below="@+id/btnLayout"
+        android:layout_centerHorizontal="true">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/latDecimalLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            >
+            <EditText
+                android:layout_width="@dimen/deg_width"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal|numberSigned"
+                android:ems="10"
+                android:id="@+id/latDecimal"
+                android:hint="°"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/lonDecimalLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/latDecimalLayout"
+            >
+            <EditText
+                android:layout_width="@dimen/deg_width"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal|numberSigned"
+                android:ems="10"
+                android:id="@+id/lonDecimal"
+                android:hint="°"
+                />
+        </android.support.design.widget.TextInputLayout>
+    </RelativeLayout>
 </RelativeLayout>
