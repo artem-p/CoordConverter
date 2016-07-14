@@ -164,6 +164,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
         android:id="@+id/dmLayout"
+        android:layout_below="@id/btnLayout"
         android:layout_centerHorizontal="true">
 
         <android.support.design.widget.TextInputLayout

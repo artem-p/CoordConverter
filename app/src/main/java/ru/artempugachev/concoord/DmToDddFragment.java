@@ -23,7 +23,7 @@ public class DmToDddFragment extends Fragment {
     private TextView mLatDeg, mLatMin, mLonDeg, mLonMin, mDecLat, mDecLon;
     private ImageButton mDmToDdBtn, mDdToDmBtn;
     private NumberFormat mNf = NumberFormat.getNumberInstance(Locale.ENGLISH);
-    private DecimalFormat mDmsMinFormat = (DecimalFormat) mNf;
+    private DecimalFormat mDmMinFormat = (DecimalFormat) mNf;
     private DecimalFormat mDddformat = (DecimalFormat) mNf;
 
     public DmToDddFragment() {
@@ -33,7 +33,7 @@ public class DmToDddFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDmsMinFormat.setMaximumFractionDigits(4);
+        mDmMinFormat.setMaximumFractionDigits(4);
         mDddformat.setMaximumFractionDigits(7);
     }
 
@@ -127,12 +127,12 @@ public class DmToDddFragment extends Fragment {
                     //  Устанавливаем значения в поля dms
                     mLatDeg.setText(String.valueOf(Math.abs(dLat.getIntD())));
 
-                    String sLatMin = mDmsMinFormat.format(dLat.getDoubleMin());
+                    String sLatMin = mDmMinFormat.format(dLat.getDoubleMin());
                     mLatMin.setText(sLatMin);
 
                     mLonDeg.setText(String.valueOf(Math.abs(dLon.getIntD())));
 
-                    String sLonMin = mDmsMinFormat.format(dLon.getDoubleMin());
+                    String sLonMin = mDmMinFormat.format(dLon.getDoubleMin());
                     mLonMin.setText(String.valueOf(sLonMin));
 
                     //  Устанавливаем спиннер с полушариями
