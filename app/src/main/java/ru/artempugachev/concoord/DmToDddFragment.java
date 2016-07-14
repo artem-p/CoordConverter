@@ -17,7 +17,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class DmToDddFragment extends Fragment {
-    //  todo расширить поле для минут
+    //  todo расширить поле для минут в dm
     private Spinner mLatSpinner;
     private Spinner mLonSpinner;
     private TextView mLatDeg, mLatMin, mLonDeg, mLonMin, mDecLat, mDecLon;

@@ -1,9 +1,260 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
-    <TextView
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="dms to dm"
-        />
+        android:paddingTop="5dp"
+        android:id="@+id/dmsLayout"
+        android:layout_centerHorizontal="true">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/latDegLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+            <EditText
+                android:layout_width="@dimen/dms_width"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/latDeg"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:hint="°"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/latMinLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/latDegLayout"
+            android:layout_toRightOf="@+id/latDegLayout">
+            <EditText
+                android:layout_width="@dimen/dms_width"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/latMin"
+
+                android:hint="'"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/latSecLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/latMinLayout"
+            android:layout_toRightOf="@+id/latMinLayout"
+            >
+            <EditText
+                android:layout_width="@dimen/dms_width"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="10"
+                android:id="@+id/latSec"
+                android:hint='"'
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/latSpinner"
+            android:layout_toEndOf="@+id/latSecLayout"
+            android:layout_toRightOf="@+id/latSecLayout"
+            android:layout_alignBottom="@+id/latSecLayout"
+            />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/lonDegLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/latDegLayout"
+            android:layout_alignParentLeft="true"
+            >
+            <EditText
+                android:layout_width="@dimen/dms_width"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/lonDeg"
+                android:hint='°'
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/lonMinLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/latDegLayout"
+            android:layout_toRightOf="@+id/lonDegLayout"
+            android:layout_toEndOf="@+id/lonDegLayout"
+            >
+            <EditText
+                android:layout_width="@dimen/dms_width"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/lonMin"
+                android:hint="'"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/lonSecLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/latDegLayout"
+            android:layout_toRightOf="@+id/lonMinLayout"
+            android:layout_toEndOf="@+id/lonMinLayout"
+            >
+            <EditText
+                android:layout_width="@dimen/dms_width"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="10"
+                android:id="@+id/lonSec"
+                android:hint='"'
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lonSpinner"
+            android:layout_below="@+id/latSpinner"
+            android:layout_toEndOf="@+id/lonSecLayout"
+            android:layout_toRightOf="@+id/lonSecLayout"
+            android:layout_alignBottom="@+id/lonSecLayout"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/btnLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/dmsLayout"
+        android:layout_centerHorizontal="true">
+
+        <ImageButton
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_expand"
+            android:id="@+id/btnDmsToDeg"/>
+
+        <ImageButton
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnDegToDms"
+            android:src="@drawable/ic_action_collapse"
+            />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:id="@+id/dmLayout"
+        android:layout_centerHorizontal="true">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/dmLatDegLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+            <EditText
+                android:layout_width="@dimen/dms_width"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/dmLatDeg"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:hint="°"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/dmLatMinLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/dmLatDegLayout"
+            android:layout_toRightOf="@+id/dmLatDegLayout">
+            <EditText
+                android:layout_width="@dimen/dms_width"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/dmLatMin"
+
+                android:hint="'"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dmLatSpinner"
+            android:layout_toEndOf="@+id/dmLatMinLayout"
+            android:layout_toRightOf="@+id/dmLatMinLayout"
+            android:layout_alignBottom="@+id/dmLatMinLayout"
+            />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/dmLonDegLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dmLatDegLayout"
+            android:layout_alignParentLeft="true"
+            >
+            <EditText
+                android:layout_width="@dimen/dms_width"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/dmLonDeg"
+                android:hint='°'
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/dmLonMinLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dmLatDegLayout"
+            android:layout_toRightOf="@+id/dmLonDegLayout"
+            android:layout_toEndOf="@+id/dmLonDegLayout"
+            >
+            <EditText
+                android:layout_width="@dimen/dms_width"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/dmLonMin"
+                android:hint="'"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dmLonSpinner"
+            android:layout_below="@+id/dmLatSpinner"
+            android:layout_toEndOf="@+id/dmLonMinLayout"
+            android:layout_toRightOf="@+id/dmLonMinLayout"
+            android:layout_alignBottom="@+id/dmLonMinLayout"
+            />
+    </RelativeLayout>
 </RelativeLayout>

@@ -25,7 +25,7 @@ import java.util.Locale;
 import static java.lang.System.in;
 
 public class MainActivity extends AppCompatActivity {
-
+    //  todo вкладка свободных преобразований как в https://play.google.com/store/apps/details?id=com.in_con.coordinateconverter
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
