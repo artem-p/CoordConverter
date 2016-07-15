@@ -65,7 +65,7 @@
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/latSpinner"
+            android:id="@+id/dmsLatSpinner"
             android:layout_toEndOf="@+id/latSecLayout"
             android:layout_toRightOf="@+id/latSecLayout"
             android:layout_alignBottom="@+id/latSecLayout"
@@ -127,7 +127,7 @@
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/lonSpinner"
+            android:id="@+id/dmsLonSpinner"
             android:layout_below="@+id/latSpinner"
             android:layout_toEndOf="@+id/lonSecLayout"
             android:layout_toRightOf="@+id/lonSecLayout"
@@ -148,13 +148,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_action_expand"
-            android:id="@+id/btnDmsToDeg"/>
+            android:id="@+id/btnDmsToDm"/>
 
         <ImageButton
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btnDegToDms"
+            android:id="@+id/btnDmToDms"
             android:src="@drawable/ic_action_collapse"
             />
     </LinearLayout>
