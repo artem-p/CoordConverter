@@ -124,7 +124,7 @@ public class DmToDddFragment extends Fragment {
                 if(MainActivity.checkDCoord(sLon, -180, 180)) {
                     Coordinate dLat = new Coordinate(Double.parseDouble(sLat));
                     Coordinate dLon = new Coordinate(Double.parseDouble(sLon));
-                    //  Устанавливаем значения в поля dms
+                    //  Устанавливаем значения в поля dm
                     mLatDeg.setText(String.valueOf(Math.abs(dLat.getIntD())));
 
                     String sLatMin = mDmMinFormat.format(dLat.getDoubleMin());

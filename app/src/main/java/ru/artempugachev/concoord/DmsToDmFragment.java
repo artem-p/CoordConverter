@@ -24,6 +24,7 @@ public class DmsToDmFragment extends Fragment {
     private ImageButton dmsToDmBtn, dmToDmsBtn;
     private NumberFormat mNf = NumberFormat.getNumberInstance(Locale.ENGLISH);
     private DecimalFormat mDmMinFormat = (DecimalFormat) mNf;
+    private DecimalFormat mDmsSecFormat = (DecimalFormat) mNf;
 
     public DmsToDmFragment() {
         // Required empty public constructor
@@ -32,6 +33,8 @@ public class DmsToDmFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mDmMinFormat.setMaximumFractionDigits(4);
+        mDmsSecFormat.setMaximumFractionDigits(4);
     }
 
     @Override
@@ -77,33 +80,71 @@ public class DmsToDmFragment extends Fragment {
     }
 
 
+    private void setMissingVals() {
+        //  Устанавливаем отсутствующие значения в 0
+        MainActivity.setToNullIfMissing(dmsLatDeg);
+        MainActivity.setToNullIfMissing(dmsLatMin);
+        MainActivity.setToNullIfMissing(dmsLatSec);
+        MainActivity.setToNullIfMissing(dmsLonDeg);
+        MainActivity.setToNullIfMissing(dmsLonMin);
+        MainActivity.setToNullIfMissing(dmsLonSec);
+
+        MainActivity.setToNullIfMissing(dmLatDeg);
+        MainActivity.setToNullIfMissing(dmLatMin);
+        MainActivity.setToNullIfMissing(dmLonDeg);
+        MainActivity.setToNullIfMissing(dmLonMin);
+    }
+
+
     private class DmsToDmListener implements View.OnClickListener{
 
         @Override
         public void onClick(View v) {
+
             setMissingVals();
 
-            String latDeg = String.valueOf(mLatDeg.getText());
-            String latMin = String.valueOf(mLatMin.getText());
-            String latLabel = (String) mLatSpinner.getSelectedItem();
-            String lonDeg = String.valueOf(mLonDeg.getText());
-            String lonMin = String.valueOf(mLonMin.getText());
-            String lonLabel = (String) mLonSpinner.getSelectedItem();
+            String latDeg = String.valueOf(dmsLatDeg.getText());
+            String latMin = String.valueOf(dmsLatMin.getText());
+            String latSec = String.valueOf(dmsLatSec.getText());
+            String latLabel = (String) dmsLatSpinner.getSelectedItem();
+            String lonDeg = String.valueOf(dmsLonDeg.getText());
+            String lonMin = String.valueOf(dmsLonMin.getText());
+            String lonSec = String.valueOf(dmsLonSec.getText());
+            String lonLabel = (String) dmsLonSpinner.getSelectedItem();
 
 
 
-            if(MainActivity.checkDMCoord(latDeg, latMin, -90, 90)) {
-                if (MainActivity.checkDMCoord(lonDeg, lonMin, -180, 180)) {
+            if(MainActivity.checkDMSCoord(latDeg, latMin, latSec, -90, 90)) {
+                if (MainActivity.checkDMSCoord(lonDeg, lonMin, lonSec, -180, 180)) {
                     Coordinate lat = new Coordinate(Integer.parseInt(latDeg),
-                            Integer.parseInt(latMin), latLabel);
-                    Coordinate lon = new Coordinate(Integer.parseInt(lonDeg),
-                            Integer.parseInt(lonMin), lonLabel);
+                            Integer.parseInt(latMin), Double.parseDouble(latSec), latLabel);
+                    Coordinate lon = new Coordinate(Integer.parseInt(lonDeg), Integer.parseInt(lonMin),
+                            Double.parseDouble(lonSec), lonLabel);
 
-                    //  Устанавливаем значения в ddd
-                    String sLat = mDddformat.format(lat.getDecimalPres());
-                    String sLon = mDddformat.format(lon.getDecimalPres());
-                    mDecLat.setText(sLat);
-                    mDecLon.setText(sLon);
+                    //  Устанавливаем значения в dm
+                    //  Устанавливаем значения в поля dm
+                    dmLatDeg.setText(String.valueOf(Math.abs(lat.getIntD())));
+
+                    String sLatMin = mDmMinFormat.format(lat.getDoubleMin());
+                    dmLatMin.setText(sLatMin);
+
+                    dmLonDeg.setText(String.valueOf(Math.abs(lon.getIntD())));
+
+                    String sLonMin = mDmMinFormat.format(lon.getDoubleMin());
+                    dmLonMin.setText(String.valueOf(sLonMin));
+
+                    //  Устанавливаем спиннер с полушариями
+                    if(lat.getIntD() >= 0) {
+                        dmLatSpinner.setSelection(0);            //  N
+                    } else {
+                        dmLatSpinner.setSelection(1);            //  S
+                    }
+
+                    if(lon.getIntD() >= 0) {
+                        dmLonSpinner.setSelection(0);            //  E
+                    } else {
+                        dmLonSpinner.setSelection(1);            //  W
+                    }
                 } else {
                     Toast.makeText(getActivity(), "Неверное значение долготы", Toast.LENGTH_SHORT).show();
                 }
@@ -121,35 +162,46 @@ public class DmsToDmFragment extends Fragment {
         public void onClick(View v) {
             setMissingVals();
 
-            String sLat = String.valueOf(mDecLat.getText());
-            String sLon = String.valueOf(mDecLon.getText());
+            String latDeg = String.valueOf(dmLatDeg.getText());
+            String latMin = String.valueOf(dmLatMin.getText());
+            String latLabel = (String) dmLatSpinner.getSelectedItem();
+            String lonDeg = String.valueOf(dmLonDeg.getText());
+            String lonMin = String.valueOf(dmLonMin.getText());
+            String lonLabel = (String) dmLonSpinner.getSelectedItem();
 
-            if(MainActivity.checkDCoord(sLat, -90, 90)) {
-                if(MainActivity.checkDCoord(sLon, -180, 180)) {
-                    Coordinate dLat = new Coordinate(Double.parseDouble(sLat));
-                    Coordinate dLon = new Coordinate(Double.parseDouble(sLon));
+
+
+            if(MainActivity.checkDMCoord(latDeg, latMin, -90, 90)) {
+                if (MainActivity.checkDMCoord(lonDeg, lonMin, -180, 180)) {
+                    Coordinate lat = new Coordinate(Integer.parseInt(latDeg),
+                            Integer.parseInt(latMin), latLabel);
+                    Coordinate lon = new Coordinate(Integer.parseInt(lonDeg),
+                            Integer.parseInt(lonMin), lonLabel);
+
                     //  Устанавливаем значения в поля dms
-                    mLatDeg.setText(String.valueOf(Math.abs(dLat.getIntD())));
+                    dmsLatDeg.setText(String.valueOf(Math.abs(lat.getIntD())));
+                    dmsLatMin.setText(String.valueOf(lat.getIntMin()));
 
-                    String sLatMin = mDmMinFormat.format(dLat.getDoubleMin());
-                    mLatMin.setText(sLatMin);
+                    String sLatSec = mDmsSecFormat.format(lat.getSec());
+                    dmsLatSec.setText(sLatSec);
 
-                    mLonDeg.setText(String.valueOf(Math.abs(dLon.getIntD())));
+                    dmsLonDeg.setText(String.valueOf(Math.abs(lon.getIntD())));
+                    dmsLonMin.setText(String.valueOf(lon.getIntMin()));
 
-                    String sLonMin = mDmMinFormat.format(dLon.getDoubleMin());
-                    mLonMin.setText(String.valueOf(sLonMin));
+                    String sLonSec = mDmsSecFormat.format(lon.getSec());
+                    dmsLonSec.setText(String.valueOf(sLonSec));
 
                     //  Устанавливаем спиннер с полушариями
-                    if(dLat.getIntD() >= 0) {
-                        mLatSpinner.setSelection(0);            //  N
+                    if(lat.getIntD() >= 0) {
+                        dmsLatSpinner.setSelection(0);            //  N
                     } else {
-                        mLatSpinner.setSelection(1);            //  S
+                        dmsLatSpinner.setSelection(1);            //  S
                     }
 
-                    if(dLon.getIntD() >= 0) {
-                        mLonSpinner.setSelection(0);            //  E
+                    if(lon.getIntD() >= 0) {
+                        dmsLonSpinner.setSelection(0);            //  E
                     } else {
-                        mLonSpinner.setSelection(1);            //  W
+                        dmsLonSpinner.setSelection(1);            //  W
                     }
                 } else {
                     Toast.makeText(getActivity(), "Неверное значение долготы", Toast.LENGTH_SHORT).show();
