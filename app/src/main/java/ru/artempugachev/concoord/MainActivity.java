@@ -74,10 +74,10 @@ public class MainActivity extends AppCompatActivity {
                     fragment.clearFields();
                 }
 
-//                if(viewPager.getCurrentItem() == DMS_TO_DM_TAB_POS) {
-//                    DmsToDmFragment fragment = (DmsToDmFragment) fa.getItem(viewPager.getCurrentItem());
-//                    fragment.clearFields();
-//                }
+                if(viewPager.getCurrentItem() == DMS_TO_DM_TAB_POS) {
+                    DmsToDmFragment fragment = (DmsToDmFragment) fa.getItem(viewPager.getCurrentItem());
+                    fragment.clearFields();
+                }
 
                 return true;
             default:

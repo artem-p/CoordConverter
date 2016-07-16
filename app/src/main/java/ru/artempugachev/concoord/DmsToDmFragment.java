@@ -80,6 +80,22 @@ public class DmsToDmFragment extends Fragment {
     }
 
 
+    public void clearFields() {
+        //  Сбрасываем все поля
+        dmsLatDeg.setText("");
+        dmsLatMin.setText("");
+        dmsLatSec.setText("");
+        dmsLonDeg.setText("");
+        dmsLonMin.setText("");
+        dmsLonSec.setText("");
+
+
+        dmLatDeg.setText("");
+        dmLatMin.setText("");
+        dmLonDeg.setText("");
+        dmLonMin.setText("");
+    }
+
     private void setMissingVals() {
         //  Устанавливаем отсутствующие значения в 0
         MainActivity.setToNullIfMissing(dmsLatDeg);
