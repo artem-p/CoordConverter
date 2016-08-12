@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.Locale;
 
 import static java.lang.System.in;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 
 public class MainActivity extends AppCompatActivity {
     //  todo вкладка свободных преобразований как в https://play.google.com/store/apps/details?id=com.in_con.coordinateconverter
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private int DMS_TO_DDD_TAB_POS = 0;
     private int DM_TO_DDD_TAB_POS = 1;
     private int DMS_TO_DM_TAB_POS = 2;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,14 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
     }
 
     @Override
@@ -83,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_location_search:
                 Toast.makeText(MainActivity.this, R.string.getting_location, Toast.LENGTH_SHORT).show();
+
             default:
                 return super.onOptionsItemSelected(item);
         }
