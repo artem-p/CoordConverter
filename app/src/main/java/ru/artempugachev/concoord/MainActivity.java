@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -80,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 return true;
+            case R.id.action_location_search:
+                Toast.makeText(MainActivity.this, R.string.getting_location, Toast.LENGTH_SHORT).show();
             default:
                 return super.onOptionsItemSelected(item);
         }
