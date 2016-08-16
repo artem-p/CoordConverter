@@ -1,7 +1,12 @@
 package ru.artempugachev.concoord;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -24,10 +29,12 @@ import java.util.List;
 import java.util.Locale;
 
 import static java.lang.System.in;
+
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     //  todo вкладка свободных преобразований как в https://play.google.com/store/apps/details?id=com.in_con.coordinateconverter
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -37,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private int DM_TO_DDD_TAB_POS = 1;
     private int DMS_TO_DM_TAB_POS = 2;
     private GoogleApiClient mGoogleApiClient;
+    private final static int REQUEST_LOCATION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +60,25 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-//        if (mGoogleApiClient == null) {
-//            mGoogleApiClient = new GoogleApiClient.Builder(this)
-//                    .addConnectionCallbacks(this)
-//                    .addOnConnectionFailedListener(this)
-//                    .addApi(LocationServices.API)
-//                    .build();
-//        }
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        mGoogleApiClient.connect();
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        mGoogleApiClient.disconnect();
+        super.onStop();
     }
 
     @Override
@@ -76,17 +96,17 @@ public class MainActivity extends AppCompatActivity {
         switch (id) {
             case R.id.action_refresh:
                 FragmentPagerAdapter fa = (FragmentPagerAdapter) viewPager.getAdapter();
-                if(viewPager.getCurrentItem() == DMS_TO_DDD_TAB_POS) {
+                if (viewPager.getCurrentItem() == DMS_TO_DDD_TAB_POS) {
                     DmsToDddFragment fragment = (DmsToDddFragment) fa.getItem(viewPager.getCurrentItem());
                     fragment.clearFields();
                 }
 
-                if(viewPager.getCurrentItem() == DM_TO_DDD_TAB_POS) {
+                if (viewPager.getCurrentItem() == DM_TO_DDD_TAB_POS) {
                     DmToDddFragment fragment = (DmToDddFragment) fa.getItem(viewPager.getCurrentItem());
                     fragment.clearFields();
                 }
 
-                if(viewPager.getCurrentItem() == DMS_TO_DM_TAB_POS) {
+                if (viewPager.getCurrentItem() == DMS_TO_DM_TAB_POS) {
                     DmsToDmFragment fragment = (DmsToDmFragment) fa.getItem(viewPager.getCurrentItem());
                     fragment.clearFields();
                 }
@@ -94,13 +114,39 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_location_search:
                 Toast.makeText(MainActivity.this, R.string.getting_location, Toast.LENGTH_SHORT).show();
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                                    Manifest.permission.ACCESS_COARSE_LOCATION},
+                            REQUEST_LOCATION);
+                }
+                mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-//    private void clearFields(TextView[] fields) {
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_LOCATION: {
+                if(grantResults.length > 0 &&
+                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted. Do the
+                    // location-related task you need to do.
+                } else {
+                    // permission denied. Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    //    private void clearFields(TextView[] fields) {
 //        //  Сбрасываем все поля
 //        for (TextView field : fields) {
 //            field.setText("");
@@ -113,6 +159,21 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new DmToDddFragment(), "dm<->ddd");
         adapter.addFragment(new DmsToDmFragment(), "dms<->dm");
         viewPager.setAdapter(adapter);
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        //  Получили местоположение
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 
 
