@@ -2,6 +2,7 @@ package ru.artempugachev.concoord;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private int DMS_TO_DM_TAB_POS = 2;
     private GoogleApiClient mGoogleApiClient;
     private final static int REQUEST_LOCATION = 1;
+    private Location mLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                                     Manifest.permission.ACCESS_COARSE_LOCATION},
                             REQUEST_LOCATION);
                 }
-                mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
 
             default:
