@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,8 @@ import java.util.Locale;
 import static java.lang.System.in;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
@@ -117,12 +120,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             case R.id.action_location_search:
                 Toast.makeText(MainActivity.this, R.string.getting_location, Toast.LENGTH_SHORT).show();
                 if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    //  Нет разрешения на использование местоположения, запрашиваем и лови колбэк потом
                     ActivityCompat.requestPermissions(this,
                             new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                                     Manifest.permission.ACCESS_COARSE_LOCATION},
                             REQUEST_LOCATION);
+                } else {
+                    //  Есть разрешения на использование местоположения
+                    mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                    outputLocation(mLocation);
                 }
-                mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
 
             default:
@@ -154,6 +161,33 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //            field.setText("");
 //        }
 //    }
+
+    private boolean checkPlayServices() {
+        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = googleApiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                Toast.makeText(getApplicationContext(),
+                        "This device is not supported.", Toast.LENGTH_LONG)
+                        .show();
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
+
+    private void outputLocation(Location location) {
+        //  Получаем местоположение и выводим его в виде координат
+        if (location != null) {
+            Toast.makeText(MainActivity.this, String.valueOf(mLocation.getLatitude()), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(MainActivity.this, R.string.cannot_get_location, Toast.LENGTH_SHORT).show();
+        }
+    }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
