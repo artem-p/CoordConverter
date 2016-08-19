@@ -163,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //    }
 
     private boolean checkPlayServices() {
+        //  todo заметка с этой проверкой
         GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
         int resultCode = googleApiAvailability.isGooglePlayServicesAvailable(this);
         if (resultCode != ConnectionResult.SUCCESS) {
