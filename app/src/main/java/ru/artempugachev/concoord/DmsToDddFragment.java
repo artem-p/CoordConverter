@@ -91,8 +91,10 @@ public class DmsToDddFragment extends Fragment {
         mDecLon.setText("");
     }
 
-    public void updateLocation(Location mLocation) {
-
+    public void updateLocation(String sLat, String sLon) {
+        mDecLat.setText(String.valueOf(sLat));
+        mDecLon.setText(String.valueOf(sLon));
+        updateDmsFields(sLat, sLon);
     }
 
 
@@ -147,33 +149,7 @@ public class DmsToDddFragment extends Fragment {
 
             if(MainActivity.checkDCoord(sLat, -90, 90)) {
                 if(MainActivity.checkDCoord(sLon, -180, 180)) {
-                    Coordinate dLat = new Coordinate(Double.parseDouble(sLat));
-                    Coordinate dLon = new Coordinate(Double.parseDouble(sLon));
-                    //  Устанавливаем значения в поля dms
-                    mLatDeg.setText(String.valueOf(Math.abs(dLat.getIntD())));
-                    mLatMin.setText(String.valueOf(dLat.getIntMin()));
-
-                    String sLatSec = mDmsSecFormat.format(dLat.getSec());
-                    mLatSec.setText(sLatSec);
-
-                    mLonDeg.setText(String.valueOf(Math.abs(dLon.getIntD())));
-                    mLonMin.setText(String.valueOf(dLon.getIntMin()));
-
-                    String sLonSec = mDmsSecFormat.format(dLon.getSec());
-                    mLonSec.setText(String.valueOf(sLonSec));
-
-                    //  Устанавливаем спиннер с полушариями
-                    if(dLat.getIntD() >= 0) {
-                        mLatSpinner.setSelection(0);            //  N
-                    } else {
-                        mLatSpinner.setSelection(1);            //  S
-                    }
-
-                    if(dLon.getIntD() >= 0) {
-                        mLonSpinner.setSelection(0);            //  E
-                    } else {
-                        mLonSpinner.setSelection(1);            //  W
-                    }
+                    updateDmsFields(sLat, sLon);
                 } else {
                     Toast.makeText(getActivity(), R.string.wrong_long, Toast.LENGTH_SHORT).show();
                 }
@@ -182,6 +158,36 @@ public class DmsToDddFragment extends Fragment {
             }
         }
 
+    }
+
+    private void updateDmsFields(String sLat, String sLon) {
+        Coordinate dLat = new Coordinate(Double.parseDouble(sLat));
+        Coordinate dLon = new Coordinate(Double.parseDouble(sLon));
+        //  Устанавливаем значения в поля dms
+        mLatDeg.setText(String.valueOf(Math.abs(dLat.getIntD())));
+        mLatMin.setText(String.valueOf(dLat.getIntMin()));
+
+        String sLatSec = mDmsSecFormat.format(dLat.getSec());
+        mLatSec.setText(sLatSec);
+
+        mLonDeg.setText(String.valueOf(Math.abs(dLon.getIntD())));
+        mLonMin.setText(String.valueOf(dLon.getIntMin()));
+
+        String sLonSec = mDmsSecFormat.format(dLon.getSec());
+        mLonSec.setText(String.valueOf(sLonSec));
+
+        //  Устанавливаем спиннер с полушариями
+        if(dLat.getIntD() >= 0) {
+            mLatSpinner.setSelection(0);            //  N
+        } else {
+            mLatSpinner.setSelection(1);            //  S
+        }
+
+        if(dLon.getIntD() >= 0) {
+            mLonSpinner.setSelection(0);            //  E
+        } else {
+            mLonSpinner.setSelection(1);            //  W
+        }
     }
 
     private void setMissingVals() {

@@ -202,11 +202,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
         if (mLocation != null) {
-            Toast.makeText(MainActivity.this, String.valueOf(mLocation.getLatitude()), Toast.LENGTH_SHORT).show();
+            String sLat = String.valueOf(mLocation.getLatitude());
+            String sLon = String.valueOf(mLocation.getLongitude());
+
             FragmentPagerAdapter fa = (FragmentPagerAdapter) viewPager.getAdapter();
             if (viewPager.getCurrentItem() == DMS_TO_DDD_TAB_POS) {
                 DmsToDddFragment fragment = (DmsToDddFragment) fa.getItem(viewPager.getCurrentItem());
-                fragment.updateLocation(mLocation);
+                fragment.updateLocation(sLat, sLon);
             }
 
 //            if (viewPager.getCurrentItem() == DM_TO_DDD_TAB_POS) {
