@@ -203,6 +203,21 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         if (mLocation != null) {
             Toast.makeText(MainActivity.this, String.valueOf(mLocation.getLatitude()), Toast.LENGTH_SHORT).show();
+            FragmentPagerAdapter fa = (FragmentPagerAdapter) viewPager.getAdapter();
+            if (viewPager.getCurrentItem() == DMS_TO_DDD_TAB_POS) {
+                DmsToDddFragment fragment = (DmsToDddFragment) fa.getItem(viewPager.getCurrentItem());
+                fragment.updateLocation(mLocation);
+            }
+
+//            if (viewPager.getCurrentItem() == DM_TO_DDD_TAB_POS) {
+//                DmToDddFragment fragment = (DmToDddFragment) fa.getItem(viewPager.getCurrentItem());
+//                fragment.clearFields();
+//            }
+//
+//            if (viewPager.getCurrentItem() == DMS_TO_DM_TAB_POS) {
+//                DmsToDmFragment fragment = (DmsToDmFragment) fa.getItem(viewPager.getCurrentItem());
+//                fragment.clearFields();
+//            }
         } else {
             Toast.makeText(MainActivity.this, R.string.cannot_get_location, Toast.LENGTH_SHORT).show();
         }

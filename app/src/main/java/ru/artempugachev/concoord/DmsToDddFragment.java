@@ -1,6 +1,7 @@
 package ru.artempugachev.concoord;
 
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -88,6 +89,10 @@ public class DmsToDddFragment extends Fragment {
         mLonSec.setText("");
         mDecLat.setText("");
         mDecLon.setText("");
+    }
+
+    public void updateLocation(Location mLocation) {
+
     }
 
 
