@@ -202,24 +202,24 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
         if (mLocation != null) {
-            String sLat = String.valueOf(mLocation.getLatitude());
-            String sLon = String.valueOf(mLocation.getLongitude());
+            Coordinate lat = new Coordinate(mLocation.getLatitude());
+            Coordinate lon = new Coordinate(mLocation.getLongitude());
 
             FragmentPagerAdapter fa = (FragmentPagerAdapter) viewPager.getAdapter();
             if (viewPager.getCurrentItem() == DMS_TO_DDD_TAB_POS) {
                 DmsToDddFragment fragment = (DmsToDddFragment) fa.getItem(viewPager.getCurrentItem());
-                fragment.updateLocation(sLat, sLon);
+                fragment.updateLocation(lat, lon);
             }
 
-//            if (viewPager.getCurrentItem() == DM_TO_DDD_TAB_POS) {
-//                DmToDddFragment fragment = (DmToDddFragment) fa.getItem(viewPager.getCurrentItem());
-//                fragment.clearFields();
-//            }
+            if (viewPager.getCurrentItem() == DM_TO_DDD_TAB_POS) {
+                DmToDddFragment fragment = (DmToDddFragment) fa.getItem(viewPager.getCurrentItem());
+                fragment.updateLocation(lat, lon);
+            }
 //
-//            if (viewPager.getCurrentItem() == DMS_TO_DM_TAB_POS) {
-//                DmsToDmFragment fragment = (DmsToDmFragment) fa.getItem(viewPager.getCurrentItem());
-//                fragment.clearFields();
-//            }
+            if (viewPager.getCurrentItem() == DMS_TO_DM_TAB_POS) {
+                DmsToDmFragment fragment = (DmsToDmFragment) fa.getItem(viewPager.getCurrentItem());
+                fragment.updateLocation(lat, lon);
+            }
         } else {
             Toast.makeText(MainActivity.this, R.string.cannot_get_location, Toast.LENGTH_SHORT).show();
         }

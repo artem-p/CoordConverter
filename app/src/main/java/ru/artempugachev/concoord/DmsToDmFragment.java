@@ -111,6 +111,11 @@ public class DmsToDmFragment extends Fragment {
         MainActivity.setToNullIfMissing(dmLonMin);
     }
 
+    public void updateLocation(Coordinate lat, Coordinate lon) {
+        updateDmsFields(lat, lon);
+        updateDmFiels(lat, lon);
+    }
+
 
     private class DmsToDmListener implements View.OnClickListener{
 
@@ -137,30 +142,8 @@ public class DmsToDmFragment extends Fragment {
                     Coordinate lon = new Coordinate(Integer.parseInt(lonDeg), Integer.parseInt(lonMin),
                             Double.parseDouble(lonSec), lonLabel);
 
-                    //  Устанавливаем значения в dm
-                    //  Устанавливаем значения в поля dm
-                    dmLatDeg.setText(String.valueOf(Math.abs(lat.getIntD())));
+                    updateDmFiels(lat, lon);
 
-                    String sLatMin = mDmMinFormat.format(lat.getDoubleMin());
-                    dmLatMin.setText(sLatMin);
-
-                    dmLonDeg.setText(String.valueOf(Math.abs(lon.getIntD())));
-
-                    String sLonMin = mDmMinFormat.format(lon.getDoubleMin());
-                    dmLonMin.setText(String.valueOf(sLonMin));
-
-                    //  Устанавливаем спиннер с полушариями
-                    if(lat.getIntD() >= 0) {
-                        dmLatSpinner.setSelection(0);            //  N
-                    } else {
-                        dmLatSpinner.setSelection(1);            //  S
-                    }
-
-                    if(lon.getIntD() >= 0) {
-                        dmLonSpinner.setSelection(0);            //  E
-                    } else {
-                        dmLonSpinner.setSelection(1);            //  W
-                    }
                 } else {
                     Toast.makeText(getActivity(), R.string.wrong_long, Toast.LENGTH_SHORT).show();
                 }
@@ -170,6 +153,34 @@ public class DmsToDmFragment extends Fragment {
 
 
         }
+    }
+
+    private void updateDmFiels(Coordinate lat, Coordinate lon) {
+
+        //  Устанавливаем значения в поля dm
+        dmLatDeg.setText(String.valueOf(Math.abs(lat.getIntD())));
+
+        String sLatMin = mDmMinFormat.format(lat.getDoubleMin());
+        dmLatMin.setText(sLatMin);
+
+        dmLonDeg.setText(String.valueOf(Math.abs(lon.getIntD())));
+
+        String sLonMin = mDmMinFormat.format(lon.getDoubleMin());
+        dmLonMin.setText(String.valueOf(sLonMin));
+
+        //  Устанавливаем спиннер с полушариями
+        if(lat.getIntD() >= 0) {
+            dmLatSpinner.setSelection(0);            //  N
+        } else {
+            dmLatSpinner.setSelection(1);            //  S
+        }
+
+        if(lon.getIntD() >= 0) {
+            dmLonSpinner.setSelection(0);            //  E
+        } else {
+            dmLonSpinner.setSelection(1);            //  W
+        }
+
     }
 
     private class DmToDmsListener implements View.OnClickListener {
@@ -185,46 +196,50 @@ public class DmsToDmFragment extends Fragment {
             String lonMin = String.valueOf(dmLonMin.getText());
             String lonLabel = (String) dmLonSpinner.getSelectedItem();
 
-
-
             if(MainActivity.checkDMCoord(latDeg, latMin, -90, 90)) {
                 if (MainActivity.checkDMCoord(lonDeg, lonMin, -180, 180)) {
                     Coordinate lat = new Coordinate(Integer.parseInt(latDeg),
                             Integer.parseInt(latMin), latLabel);
                     Coordinate lon = new Coordinate(Integer.parseInt(lonDeg),
                             Integer.parseInt(lonMin), lonLabel);
+                    updateDmsFields(lat, lon);
 
-                    //  Устанавливаем значения в поля dms
-                    dmsLatDeg.setText(String.valueOf(Math.abs(lat.getIntD())));
-                    dmsLatMin.setText(String.valueOf(lat.getIntMin()));
-
-                    String sLatSec = mDmsSecFormat.format(lat.getSec());
-                    dmsLatSec.setText(sLatSec);
-
-                    dmsLonDeg.setText(String.valueOf(Math.abs(lon.getIntD())));
-                    dmsLonMin.setText(String.valueOf(lon.getIntMin()));
-
-                    String sLonSec = mDmsSecFormat.format(lon.getSec());
-                    dmsLonSec.setText(String.valueOf(sLonSec));
-
-                    //  Устанавливаем спиннер с полушариями
-                    if(lat.getIntD() >= 0) {
-                        dmsLatSpinner.setSelection(0);            //  N
-                    } else {
-                        dmsLatSpinner.setSelection(1);            //  S
-                    }
-
-                    if(lon.getIntD() >= 0) {
-                        dmsLonSpinner.setSelection(0);            //  E
-                    } else {
-                        dmsLonSpinner.setSelection(1);            //  W
-                    }
                 } else {
                     Toast.makeText(getActivity(), R.string.wrong_long, Toast.LENGTH_SHORT).show();
                 }
             } else {
                 Toast.makeText(getActivity(), R.string.wrong_lat, Toast.LENGTH_SHORT).show();
             }
+        }
+
+    }
+
+    private void updateDmsFields(Coordinate lat, Coordinate lon) {
+
+        //  Устанавливаем значения в поля dms
+        dmsLatDeg.setText(String.valueOf(Math.abs(lat.getIntD())));
+        dmsLatMin.setText(String.valueOf(lat.getIntMin()));
+
+        String sLatSec = mDmsSecFormat.format(lat.getSec());
+        dmsLatSec.setText(sLatSec);
+
+        dmsLonDeg.setText(String.valueOf(Math.abs(lon.getIntD())));
+        dmsLonMin.setText(String.valueOf(lon.getIntMin()));
+
+        String sLonSec = mDmsSecFormat.format(lon.getSec());
+        dmsLonSec.setText(String.valueOf(sLonSec));
+
+        //  Устанавливаем спиннер с полушариями
+        if(lat.getIntD() >= 0) {
+            dmsLatSpinner.setSelection(0);            //  N
+        } else {
+            dmsLatSpinner.setSelection(1);            //  S
+        }
+
+        if(lon.getIntD() >= 0) {
+            dmsLonSpinner.setSelection(0);            //  E
+        } else {
+            dmsLonSpinner.setSelection(1);            //  W
         }
 
     }

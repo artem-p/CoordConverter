@@ -73,6 +73,12 @@ public class DmToDddFragment extends Fragment {
         mDecLon.setText("");
     }
 
+    public void updateLocation(Coordinate lat, Coordinate lon) {
+        mDecLat.setText(String.valueOf(lat.asDDD()));
+        mDecLon.setText(String.valueOf(lon.asDDD()));
+        updateDmFields(lat, lon);
+    }
+
     private class DmToDListener implements View.OnClickListener{
 
         @Override
@@ -124,35 +130,40 @@ public class DmToDddFragment extends Fragment {
                 if(MainActivity.checkDCoord(sLon, -180, 180)) {
                     Coordinate dLat = new Coordinate(Double.parseDouble(sLat));
                     Coordinate dLon = new Coordinate(Double.parseDouble(sLon));
-                    //  Устанавливаем значения в поля dm
-                    mLatDeg.setText(String.valueOf(Math.abs(dLat.getIntD())));
-
-                    String sLatMin = mDmMinFormat.format(dLat.getDoubleMin());
-                    mLatMin.setText(sLatMin);
-
-                    mLonDeg.setText(String.valueOf(Math.abs(dLon.getIntD())));
-
-                    String sLonMin = mDmMinFormat.format(dLon.getDoubleMin());
-                    mLonMin.setText(String.valueOf(sLonMin));
-
-                    //  Устанавливаем спиннер с полушариями
-                    if(dLat.getIntD() >= 0) {
-                        mLatSpinner.setSelection(0);            //  N
-                    } else {
-                        mLatSpinner.setSelection(1);            //  S
-                    }
-
-                    if(dLon.getIntD() >= 0) {
-                        mLonSpinner.setSelection(0);            //  E
-                    } else {
-                        mLonSpinner.setSelection(1);            //  W
-                    }
+                    updateDmFields(dLat, dLon);
                 } else {
                     Toast.makeText(getActivity(), R.string.wrong_long, Toast.LENGTH_SHORT).show();
                 }
             } else {
                 Toast.makeText(getActivity(), R.string.wrong_lat, Toast.LENGTH_SHORT).show();
             }
+        }
+
+    }
+
+    private void updateDmFields(Coordinate dLat, Coordinate dLon) {
+        //  Устанавливаем значения в поля dm
+        mLatDeg.setText(String.valueOf(Math.abs(dLat.getIntD())));
+
+        String sLatMin = mDmMinFormat.format(dLat.getDoubleMin());
+        mLatMin.setText(sLatMin);
+
+        mLonDeg.setText(String.valueOf(Math.abs(dLon.getIntD())));
+
+        String sLonMin = mDmMinFormat.format(dLon.getDoubleMin());
+        mLonMin.setText(String.valueOf(sLonMin));
+
+        //  Устанавливаем спиннер с полушариями
+        if(dLat.getIntD() >= 0) {
+            mLatSpinner.setSelection(0);            //  N
+        } else {
+            mLatSpinner.setSelection(1);            //  S
+        }
+
+        if(dLon.getIntD() >= 0) {
+            mLonSpinner.setSelection(0);            //  E
+        } else {
+            mLonSpinner.setSelection(1);            //  W
         }
 
     }

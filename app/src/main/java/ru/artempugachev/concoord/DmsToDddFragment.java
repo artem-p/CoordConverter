@@ -91,10 +91,10 @@ public class DmsToDddFragment extends Fragment {
         mDecLon.setText("");
     }
 
-    public void updateLocation(String sLat, String sLon) {
-        mDecLat.setText(String.valueOf(sLat));
-        mDecLon.setText(String.valueOf(sLon));
-        updateDmsFields(sLat, sLon);
+    public void updateLocation(Coordinate lat, Coordinate lon) {
+        mDecLat.setText(String.valueOf(lat.asDDD()));
+        mDecLon.setText(String.valueOf(lon.asDDD()));
+        updateDmsFields(lat, lon);
     }
 
 
@@ -149,7 +149,9 @@ public class DmsToDddFragment extends Fragment {
 
             if(MainActivity.checkDCoord(sLat, -90, 90)) {
                 if(MainActivity.checkDCoord(sLon, -180, 180)) {
-                    updateDmsFields(sLat, sLon);
+                    Coordinate dLat = new Coordinate(Double.parseDouble(sLat));
+                    Coordinate dLon = new Coordinate(Double.parseDouble(sLon));
+                    updateDmsFields(dLat, dLon);
                 } else {
                     Toast.makeText(getActivity(), R.string.wrong_long, Toast.LENGTH_SHORT).show();
                 }
@@ -160,9 +162,7 @@ public class DmsToDddFragment extends Fragment {
 
     }
 
-    private void updateDmsFields(String sLat, String sLon) {
-        Coordinate dLat = new Coordinate(Double.parseDouble(sLat));
-        Coordinate dLon = new Coordinate(Double.parseDouble(sLon));
+    private void updateDmsFields(Coordinate dLat, Coordinate dLon) {
         //  Устанавливаем значения в поля dms
         mLatDeg.setText(String.valueOf(Math.abs(dLat.getIntD())));
         mLatMin.setText(String.valueOf(dLat.getIntMin()));
