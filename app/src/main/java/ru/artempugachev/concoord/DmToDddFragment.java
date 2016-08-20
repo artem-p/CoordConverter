@@ -97,9 +97,9 @@ public class DmToDddFragment extends Fragment {
             if(MainActivity.checkDMCoord(latDeg, latMin, -90, 90)) {
                 if (MainActivity.checkDMCoord(lonDeg, lonMin, -180, 180)) {
                     Coordinate lat = new Coordinate(Integer.parseInt(latDeg),
-                            Integer.parseInt(latMin), latLabel);
+                            Double.parseDouble(latMin), latLabel);
                     Coordinate lon = new Coordinate(Integer.parseInt(lonDeg),
-                            Integer.parseInt(lonMin), lonLabel);
+                            Double.parseDouble(lonMin), lonLabel);
 
                     //  Устанавливаем значения в ddd
                     String sLat = mDddformat.format(lat.getDecimalPres());

@@ -316,7 +316,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         boolean isRightCoords = false;
 
         int deg = Integer.parseInt(sDeg);
-        int min = Integer.parseInt(sMin);
+        double min = Double.parseDouble(sMin);
 
         if(minDeg <= deg && deg <= maxDeg) {
             if(0 <= min && min <= 59) {
