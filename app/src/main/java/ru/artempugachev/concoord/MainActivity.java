@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private GoogleApiClient mGoogleApiClient;
     private final static int REQUEST_LOCATION = 1;
     private Location mLocation;
+    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,19 +66,25 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        if (mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API)
-                    .build();
+        //  Проверяем доступность play services
+        if(checkPlayServices()) {
+            //  Получаем google api client
+            buildGoogleApiClient();
         }
     }
 
     @Override
     protected void onStart() {
-        mGoogleApiClient.connect();
         super.onStart();
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkPlayServices();
     }
 
     @Override
@@ -127,8 +134,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                             REQUEST_LOCATION);
                 } else {
                     //  Есть разрешения на использование местоположения
-                    mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-                    outputLocation(mLocation);
+                    outputLocation();
                 }
 
 
@@ -145,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted. Do the
                     // location-related task you need to do.
+                    outputLocation();
                 } else {
                     // permission denied. Disable the
                     // functionality that depends on this permission.
@@ -163,16 +170,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //    }
 
     private boolean checkPlayServices() {
-        //  todo заметка с этой проверкой
         GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
-        int resultCode = googleApiAvailability.isGooglePlayServicesAvailable(this);
-        if (resultCode != ConnectionResult.SUCCESS) {
-            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
-                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+        int result = googleApiAvailability.isGooglePlayServicesAvailable(this);
+        if (result != ConnectionResult.SUCCESS) {
+            if (googleApiAvailability.isUserResolvableError(result)) {
+                googleApiAvailability.getErrorDialog(this, result,
                         PLAY_SERVICES_RESOLUTION_REQUEST).show();
             } else {
                 Toast.makeText(getApplicationContext(),
-                        "This device is not supported.", Toast.LENGTH_LONG)
+                        R.string.device_is_not_supported, Toast.LENGTH_LONG)
                         .show();
                 finish();
             }
@@ -181,9 +187,21 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         return true;
     }
 
-    private void outputLocation(Location location) {
+    protected synchronized void buildGoogleApiClient() {
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
+    }
+
+    private void outputLocation() {
         //  Получаем местоположение и выводим его в виде координат
-        if (location != null) {
+        mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+        if (mLocation != null) {
             Toast.makeText(MainActivity.this, String.valueOf(mLocation.getLatitude()), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(MainActivity.this, R.string.cannot_get_location, Toast.LENGTH_SHORT).show();
@@ -200,12 +218,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        //  Получили местоположение
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-
+        mGoogleApiClient.connect();
     }
 
     @Override
