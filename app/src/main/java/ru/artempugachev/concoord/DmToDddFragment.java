@@ -101,10 +101,10 @@ public class DmToDddFragment extends Fragment {
                     mDecLat.setText(sLat);
                     mDecLon.setText(sLon);
                 } else {
-                    Toast.makeText(getActivity(), "Неверное значение долготы", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.wrong_long, Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(getActivity(), "Неверное значение широты", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.wrong_lat, Toast.LENGTH_SHORT).show();
             }
 
 
@@ -148,10 +148,10 @@ public class DmToDddFragment extends Fragment {
                         mLonSpinner.setSelection(1);            //  W
                     }
                 } else {
-                    Toast.makeText(getActivity(), "Неверное значение долготы", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.wrong_long, Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(getActivity(), "Неверное значение широты", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.wrong_lat, Toast.LENGTH_SHORT).show();
             }
         }
 
